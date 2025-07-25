@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
 
 @layer base {
   :root {
@@ -40,7 +42,7 @@
 
     /* Gradientes personalizados con colores del escudo */
     --gradient-primary: linear-gradient(135deg, hsl(0 85% 55%), hsl(0 75% 45%));
-    --gradient-hero: linear-gradient(135deg, hsl(0 85% 55% / 0.9), hsl(220 85% 45% / 0.8));
+    --gradient-hero: linear-gradient(135deg, hsl(0 85% 55% / 0.8), hsl(220 85% 45% / 0.6));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 14% 98%));
 
     /* Sombras elegantes con rojo institucional */
@@ -113,5 +115,21 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  /* Degradado muy sutil */
+  .bg-gradient-hero-overlay {
+    background: linear-gradient(135deg,
+        hsl(0 85% 55% / 0.1) 0%,
+        /* Rojo con solo 10% de opacidad */
+        hsl(220 85% 45% / 0.08) 100%
+        /* Azul con solo 8% de opacidad */
+      );
   }
 }

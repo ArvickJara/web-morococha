@@ -13,6 +13,9 @@
     "@vitejs/plugin-react-swc": "^3.11.0"
   },
   "dependencies": {
-    "lovable-tagger": "^1.1.8"
+    "clsx": "^2.1.1",
+    "lovable-tagger": "^1.1.8",
+    "sonner": "^2.0.6",
+    "tailwind-merge": "^3.3.1"
   }
 }
