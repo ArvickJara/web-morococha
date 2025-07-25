@@ -61,7 +61,7 @@ const NewsSection = () => {
         <section id="noticias" className="py-20 bg-background">
             <div className="container mx-auto px-4">
                 {/* Anuncios importantes */}
-                <div className="mb-16">
+                {/* <div className="mb-16">
                     <h3 className="text-xl font-bold text-foreground mb-6">Anuncios Importantes</h3>
                     <div className="space-y-4">
                         {announcements.map((announcement, index) => (
@@ -73,7 +73,7 @@ const NewsSection = () => {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div> */}
 
                 {/* Noticias */}
                 <div className="text-center mb-16">

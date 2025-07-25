@@ -52,7 +52,14 @@ const HeroSection = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                        <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-hero">
+                        <Button
+                            size="lg"
+                            className="bg-white text-primary hover:bg-white/90 shadow-hero"
+                            onClick={() => {
+                                const serviciosSection = document.getElementById('servicios');
+                                serviciosSection?.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                        >
                             Ver Servicios
                             <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>

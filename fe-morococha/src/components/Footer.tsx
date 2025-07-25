@@ -11,6 +11,7 @@ import {
     Youtube,
     ArrowRight
 } from "lucide-react";
+import EscudoGray from "@/assets/escudo_grayscale.png";
 
 const Footer = () => {
     const quickLinks = [
@@ -21,14 +22,17 @@ const Footer = () => {
     ];
 
     const services = [
-        { name: "Licencias de Construcción", href: "#" },
-        { name: "Registro Civil", href: "#" },
-        { name: "Servicios Públicos", href: "#" },
-        { name: "Programas Sociales", href: "#" }
+        { name: "Licencias de funcionamiento" },
+        { name: "Codisec 2025" },
+        { name: "Participación Vecinal" },
+        { name: "Administración Tributaria" },
+        { name: "Serenazgo Morococha" },
+        { name: "Registros Civiles" },
+        { name: "Comercialización" }
     ];
 
     const socialLinks = [
-        { name: "Facebook", icon: Facebook, href: "#" },
+        { name: "Facebook", icon: Facebook, href: "https://www.facebook.com/munidemorococha" },
         { name: "Twitter", icon: Twitter, href: "#" },
         { name: "Instagram", icon: Instagram, href: "#" },
         { name: "YouTube", icon: Youtube, href: "#" }
@@ -37,16 +41,18 @@ const Footer = () => {
     return (
         <footer className="bg-foreground text-background">
             <div className="container mx-auto px-4 py-16">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                     {/* Información de contacto */}
                     <div className="lg:col-span-1">
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center text-primary-foreground font-bold text-xl">
-                                M
-                            </div>
+                            <img
+                                src={EscudoGray}
+                                alt="Escudo de Morococha"
+                                className="h-12 w-12 object-contain"
+                            />
                             <div>
                                 <h3 className="font-bold text-xl">Municipalidad</h3>
-                                <p className="text-sm text-background/70">Ciudad Ejemplo</p>
+                                <p className="text-sm text-background/70">Morococha</p>
                             </div>
                         </div>
 
@@ -71,7 +77,7 @@ const Footer = () => {
                                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                                 <div>
                                     <p className="font-medium">Email</p>
-                                    <p className="text-background/70 text-sm">info@municipalidad.gov</p>
+                                    <p className="text-background/70 text-sm">mesadepartesmdm2023.2026@gmail.com</p>
                                 </div>
                             </div>
 
@@ -86,7 +92,7 @@ const Footer = () => {
                     </div>
 
                     {/* Enlaces rápidos */}
-                    <div>
+                    {/* <div>
                         <h4 className="font-bold text-lg mb-6">Enlaces Rápidos</h4>
                         <ul className="space-y-3">
                             {quickLinks.map((link, index) => (
@@ -101,7 +107,7 @@ const Footer = () => {
                                 </li>
                             ))}
                         </ul>
-                    </div>
+                    </div> */}
 
                     {/* Servicios */}
                     <div>
@@ -109,13 +115,10 @@ const Footer = () => {
                         <ul className="space-y-3">
                             {services.map((service, index) => (
                                 <li key={index}>
-                                    <a
-                                        href={service.href}
-                                        className="text-background/70 hover:text-primary transition-colors duration-200 flex items-center group"
-                                    >
+                                    <div className="text-background/70 hover:text-primary transition-colors duration-200 flex items-center group cursor-pointer">
                                         <ArrowRight className="h-4 w-4 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                                         {service.name}
-                                    </a>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
@@ -124,20 +127,7 @@ const Footer = () => {
                     {/* Newsletter y redes sociales */}
                     <div>
                         <h4 className="font-bold text-lg mb-6">Mantente Informado</h4>
-                        <p className="text-background/70 text-sm mb-4">
-                            Suscríbete a nuestro boletín para recibir las últimas noticias y actualizaciones.
-                        </p>
 
-                        <div className="flex gap-2 mb-6">
-                            <Input
-                                type="email"
-                                placeholder="Tu email"
-                                className="bg-background/10 border-background/20 text-background placeholder:text-background/50"
-                            />
-                            <Button size="icon" className="bg-primary hover:bg-primary-variant flex-shrink-0">
-                                <ArrowRight className="h-4 w-4" />
-                            </Button>
-                        </div>
 
                         <div>
                             <h5 className="font-medium mb-4">Síguenos</h5>
@@ -161,19 +151,9 @@ const Footer = () => {
                 <div className="border-t border-background/20 pt-8">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                         <div className="text-background/70 text-sm">
-                            © 2024 Municipalidad de Ciudad Ejemplo. Todos los derechos reservados.
+                            © 2024 Imagen Institucional - Municipalidad de Morococha. Todos los derechos reservados.
                         </div>
-                        <div className="flex gap-6 text-sm">
-                            <a href="#" className="text-background/70 hover:text-primary transition-colors">
-                                Política de Privacidad
-                            </a>
-                            <a href="#" className="text-background/70 hover:text-primary transition-colors">
-                                Términos de Uso
-                            </a>
-                            <a href="#" className="text-background/70 hover:text-primary transition-colors">
-                                Accesibilidad
-                            </a>
-                        </div>
+
                     </div>
                 </div>
             </div>
