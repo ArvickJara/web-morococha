@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Building, Leaf } from "lucide-react";
+import { ArrowRight, Users, Building, Pickaxe } from "lucide-react";
 import heroVideo from "@/assets/morococha.mp4";
 import heroImage from "@/assets/fondo-morococha.jpg";
 
 const HeroSection = () => {
     const stats = [
-        { icon: Users, label: "Ciudadanos", value: "50,000+" },
-        { icon: Building, label: "Servicios", value: "25+" },
-        { icon: Leaf, label: "Proyectos Verdes", value: "15" },
+        { icon: Users, label: "Ciudadanos", value: "5,155+" },
+        { icon: Building, label: "Servicios", value: "7+" },
+        { icon: Pickaxe, label: "Proyectos Mineros", value: "3+" },
     ];
 
     return (
@@ -56,26 +56,30 @@ const HeroSection = () => {
                             Ver Servicios
                             <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
-                        <Button
-                            size="lg"
-                            variant="outline"
-                            className="border-white text-white hover:bg-white hover:text-primary backdrop-blur-sm"
-                        >
-                            Contactar
-                        </Button>
                     </div>
 
                     {/* Estadísticas */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                         {stats.map((stat, index) => (
-                            <div key={index} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                            <div
+                                key={index}
+                                className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 
+                       hover:bg-white/20 hover:border-white/40 hover:scale-105 
+                       transition-all duration-300 ease-in-out cursor-pointer
+                       hover:shadow-lg hover:shadow-white/10"
+                            >
                                 <div className="flex items-center gap-3 mb-2">
-                                    <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                                        <stat.icon className="h-5 w-5 text-white" />
+                                    <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center
+                               group-hover:bg-white/30 transition-colors duration-300">
+                                        <stat.icon className="h-5 w-5 text-white group-hover:scale-110 transition-transform duration-300" />
                                     </div>
                                     <div>
-                                        <div className="text-2xl font-bold text-white">{stat.value}</div>
-                                        <div className="text-white/80 text-sm">{stat.label}</div>
+                                        <div className="text-2xl font-bold text-white hover:text-white/95 transition-colors duration-300">
+                                            {stat.value}
+                                        </div>
+                                        <div className="text-white/80 text-sm hover:text-white/90 transition-colors duration-300">
+                                            {stat.label}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
