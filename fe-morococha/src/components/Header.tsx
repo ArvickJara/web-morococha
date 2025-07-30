@@ -10,13 +10,12 @@ const Header = () => {
         { name: "Inicio", href: "#" },
         { name: "Servicios", href: "#servicios" },
         { name: "Noticias", href: "#noticias" },
-        { name: "Contacto", href: "#contacto" },
-        { name: "Transparencia", href: "#transparencia" },
+        { name: "San Francisco", href: "#contacto" },
+        { name: "Transparencia", href: "https://www.transparencia.gob.pe/enlaces/pte_transparencia_enlaces.aspx?id_entidad=11294" },
     ];
 
     return (
         <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 border-b border-border">
-
 
             {/* Navegación principal */}
             <div className="container mx-auto px-4">

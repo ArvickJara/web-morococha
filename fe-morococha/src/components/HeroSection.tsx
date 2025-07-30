@@ -95,11 +95,11 @@ const HeroSection = () => {
                 </div>
             </div>
 
-            {/* Indicador de scroll */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
-                <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-                    <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
-                </div>
+            {/* Lema institucional */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center">
+                <p className="text-lg md:text-xl font-bold italic animate-bounce">
+                    "Gestión con oportunidad para todos"
+                </p>
             </div>
         </section>
     );
