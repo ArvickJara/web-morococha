@@ -42,7 +42,7 @@ All colors MUST be HSL.
 
     /* Gradientes personalizados con colores del escudo */
     --gradient-primary: linear-gradient(135deg, hsl(0 85% 55%), hsl(0 75% 45%));
-    --gradient-hero: linear-gradient(135deg, hsl(0 85% 55% / 0.2), hsl(220 85% 45% / 0.3));
+    --gradient-hero: linear-gradient(135deg, hsl(0 85% 55% / 0.4), hsl(220 85% 45% / 0.3));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 14% 98%));
 
     /* Sombras elegantes con rojo institucional */

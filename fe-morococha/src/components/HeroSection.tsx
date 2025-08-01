@@ -31,9 +31,8 @@ const HeroSection = () => {
 
             </video>
 
-            <div className="absolute inset-0 bg-gradient-hero">
+            <div className="absolute inset-0 bg-gradient-hero"></div>
 
-            </div>
 
             {/* Contenido */}
             <div className="relative z-10 container mx-auto px-4 py-20">
@@ -70,7 +69,7 @@ const HeroSection = () => {
                         {stats.map((stat, index) => (
                             <div
                                 key={index}
-                                className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 
+                                className="bg-white/20 backdrop-blur-sm rounded-lg p-6 border border-white/20 
                        hover:bg-white/20 hover:border-white/40 hover:scale-105 
                        transition-all duration-300 ease-in-out cursor-pointer
                        hover:shadow-lg hover:shadow-white/10"
@@ -92,16 +91,19 @@ const HeroSection = () => {
                             </div>
                         ))}
                     </div>
-                </div>
-            </div>
 
+                </div>
+
+            </div>
             {/* Lema institucional */}
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center">
                 <p className="text-lg md:text-xl font-bold italic animate-bounce">
                     "Gestión con oportunidad para todos"
                 </p>
             </div>
+
         </section>
+
     );
 };
 

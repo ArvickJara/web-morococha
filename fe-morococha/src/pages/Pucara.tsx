@@ -1,12 +1,16 @@
 
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import PucaraSection from "@/components/PucaraSection";
+
 const Pucara = () => {
     return (
-        <div>
-            <h1>San Francisco</h1>
-            <p>Bienvenido a la página de San Francisco.</p>
-            {/* Aquí puedes agregar más contenido específico para la página de San Francisco */}
+        <div className="min-h-screen">
+            <Header />
+            <PucaraSection />
+            <Footer />
         </div>
     );
-}
+};
 
 export default Pucara;
