@@ -2,15 +2,19 @@ const express = require('express');
 const knex = require('knex')(require('../knexfile'));
 const protect = require('../middleware/auth');
 const { parseBody } = require('../middleware/parseBody');
+const logger = require('../utils/logger');
 
 const router = express.Router();
 
 // Obtener información completa de la municipalidad (público)
 router.get('/', async (req, res) => {
+  logger.startOperation('Obtener información municipalidad', {}, 'Municipalidad');
+  
   try {
     const municipalidad = await knex('municipalidad').first();
     
     if (!municipalidad) {
+      logger.warn('Información de municipalidad no encontrada en base de datos', 'Municipalidad');
       return res.status(404).json({ message: 'Información de municipalidad no encontrada.' });
     }
 
@@ -32,8 +36,15 @@ router.get('/', async (req, res) => {
       servicios
     };
 
+    logger.endOperation('Obtener información municipalidad', { 
+      nombre: municipalidad.nombre,
+      redes: redes_sociales.length,
+      servicios: servicios.length
+    }, 'Municipalidad');
+
     res.status(200).json(response);
   } catch (err) {
+    logger.operationError('Obtener información municipalidad', err, 'Municipalidad');
     res.status(500).json({ error: 'Error obteniendo información de municipalidad.', details: err.message });
   }
 });
@@ -42,10 +53,15 @@ router.get('/', async (req, res) => {
 router.put('/:id', protect(['admin']), parseBody(), async (req, res) => {
   const { id } = req.params;
   const { nombre, slogan, direccion, telefono, email, horarios_atencion } = req.body;
+  
+  logger.startOperation('Actualizar información municipalidad', { id }, 'Municipalidad');
 
   try {
     const municipalidad = await knex('municipalidad').where('id', id).first();
-    if (!municipalidad) return res.status(404).json({ message: 'Municipalidad no encontrada.' });
+    if (!municipalidad) {
+      logger.warn(`Intento de actualizar municipalidad inexistente ID: ${id}`, 'Municipalidad');
+      return res.status(404).json({ message: 'Municipalidad no encontrada.' });
+    }
 
     const updateData = {};
     if (nombre) updateData.nombre = nombre;
@@ -58,8 +74,12 @@ router.put('/:id', protect(['admin']), parseBody(), async (req, res) => {
 
     await knex('municipalidad').where('id', id).update(updateData);
 
+    logger.endOperation('Actualizar información municipalidad', { id, cambios: Object.keys(updateData) }, 'Municipalidad');
+    logger.info(`Información de municipalidad ID ${id} actualizada. Campos modificados: ${Object.keys(updateData).join(', ')}`, 'Municipalidad');
+    
     res.status(200).json({ message: 'Información de municipalidad actualizada exitosamente' });
   } catch (err) {
+    logger.operationError('Actualizar información municipalidad', err, 'Municipalidad');
     res.status(500).json({ error: 'Error actualizando información de municipalidad.', details: err.message });
   }
 });
