@@ -31,6 +31,16 @@ const serviciosRoutes = require('./servicios');
 router.use('/servicios', serviciosRoutes);
 logger.info('Rutas de servicios registradas', 'Routes');
 
+// Rutas de miembros
+const miembrosRoutes = require('./miembros');
+router.use('/miembros', miembrosRoutes);
+logger.info('Rutas de miembros registradas', 'Routes');
+
+// Rutas de obras
+const obrasRoutes = require('./obras');
+router.use('/obras', obrasRoutes);
+logger.info('Rutas de obras registradas', 'Routes');
+
 // Comentar rutas de upload ya que está integrado en noticias
 // const uploadRoutes = require('./upload');
 // router.use('/upload', uploadRoutes);
