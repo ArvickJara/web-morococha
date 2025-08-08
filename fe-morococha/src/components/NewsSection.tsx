@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowRight, ExternalLink } from "lucide-react";
+import imagenNoticia from "@/assets/imagen_noticia.webp";
 
 const NewsSection = () => {
     const news = [
@@ -39,41 +40,9 @@ const NewsSection = () => {
         }
     ];
 
-    const announcements = [
-        {
-            type: "Importante",
-            message: "Corte programado de agua el 20 de enero de 9:00 a 15:00 horas",
-            variant: "destructive" as const
-        },
-        {
-            type: "Aviso",
-            message: "Inscripciones abiertas para cursos de capacitación laboral",
-            variant: "secondary" as const
-        },
-        {
-            type: "Recordatorio",
-            message: "Vencimiento de impuestos municipales el 31 de enero",
-            variant: "default" as const
-        }
-    ];
-
     return (
         <section id="noticias" className="py-20 bg-background">
             <div className="container mx-auto px-4">
-                {/* Anuncios importantes */}
-                {/* <div className="mb-16">
-                    <h3 className="text-xl font-bold text-foreground mb-6">Anuncios Importantes</h3>
-                    <div className="space-y-4">
-                        {announcements.map((announcement, index) => (
-                            <div key={index} className="flex items-start gap-4 p-4 bg-muted/50 rounded-lg border-l-4 border-primary">
-                                <Badge variant={announcement.variant} className="mt-0.5">
-                                    {announcement.type}
-                                </Badge>
-                                <p className="text-foreground flex-1">{announcement.message}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div> */}
 
                 {/* Noticias */}
                 <div className="text-center mb-16">
@@ -92,9 +61,12 @@ const NewsSection = () => {
                         <Card className="h-full group hover:shadow-hover transition-all duration-300 border-0 bg-gradient-card">
                             <div className="relative">
                                 <div className="h-64 bg-gradient-primary rounded-t-lg flex items-center justify-center">
-                                    <div className="text-center text-primary-foreground">
-                                        <Calendar className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                                        <p className="text-sm opacity-75">Imagen del evento</p>
+                                    <div className="h-64 bg-gradient-primary rounded-t-lg overflow-hidden">
+                                        <img
+                                            src={imagenNoticia}
+                                            alt="Imagen del evento"
+                                            className="w-full h-full object-cover"
+                                        />
                                     </div>
                                 </div>
                                 <Badge className="absolute top-4 left-4 bg-secondary">

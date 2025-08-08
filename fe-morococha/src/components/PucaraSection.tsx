@@ -1,116 +1,109 @@
-// Crear un nuevo componente PucaraSection.tsx
-import { MapPin, Users, GraduationCap, Coins, Heart } from "lucide-react";
+import { MapPin, Users, GraduationCap, Coins, Heart, Mountain, BookOpen } from "lucide-react";
+
+// TODO: Reemplaza estas rutas con imágenes reales de Pucará
+import pucaraVistaGeneral from "@/assets/pucara-morococha.jpg";
+import toritoPucara from "@/assets/pucara-torito.webp";
+import ganaderiaPucara from "@/assets/ganaderia-pucara.jpg";
+import escuelaPucara from "@/assets/escuela-pucara.jpg";
 
 const PucaraSection = () => {
-    const pucaraInfo = [
+    const stats = [
+        { icon: MapPin, label: "Altitud", value: "4,259 msnm" },
+        { icon: Users, label: "Habitantes", value: "+ 300" },
+        { icon: Mountain, label: "Ubicación", value: "Km 147, Carr. Central" },
+    ];
+
+    const features = [
         {
-            icon: MapPin,
-            title: "Ubicación",
-            description: "Centro poblado San Francisco de Asís de Pucará",
-            details: [
-                "Altitud: 4,259 m.s.n.m.",
-                "Kilómetro 147 Carretera Central",
-                "Coordenadas: 11°35'10.7\"S, 76°3'42\"W"
-            ]
-        },
-        {
-            icon: Users,
-            title: "Población",
-            description: "Comunidad resiliente del altiplano",
-            details: [
-                "Aproximadamente 300 habitantes",
-                "184 viviendas",
-                "Predominio población adulta y femenina"
-            ]
+            icon: BookOpen,
+            title: "Una Historia de Resiliencia",
+            description: "Pucará enfrenta impactos sociales significativos derivados del reasentamiento de Morococha por el proyecto minero Toromocho. A pesar de los desafíos, la comunidad mantiene su identidad y tradiciones ancestrales, demostrando una notable fortaleza y capacidad de adaptación.",
+            image: pucaraVistaGeneral,
+            imageAlt: "Vista panorámica de la comunidad de Pucará en los Andes.",
+            align: "left"
         },
         {
             icon: Heart,
-            title: "Cultura",
-            description: "Tradiciones vivas del altiplano peruano",
-            details: [
-                "Famoso Torito de Pucará",
-                "Fiesta Virgen del Rosario (octubre)",
-                "Alfarería tradicional ancestral"
-            ]
+            title: "Cultura Viva y Tradición",
+            description: "La comunidad conserva vivas las expresiones culturales del altiplano. Destaca la alfarería y el famoso Torito de Pucará, símbolo de protección y prosperidad. Sus fiestas patronales combinan música, danzas folklóricas y torneos, manteniendo un rico legado cultural.",
+            image: toritoPucara,
+            imageAlt: "Primer plano de un Torito de Pucará de cerámica.",
+            align: "right"
         },
         {
             icon: Coins,
-            title: "Economía",
-            description: "Actividades tradicionales y artesanía",
-            details: [
-                "39% ganadería y agricultura",
-                "13.94% actividades comerciales",
-                "Cerámica y artesanías"
-            ]
+            title: "Economía Local y Sostenible",
+            description: "La economía se basa en la ganadería y agricultura de subsistencia, que representa casi el 40% del empleo. La cerámica y la fabricación de artesanías también generan ingresos significativos, complementados por el comercio y servicios locales.",
+            image: ganaderiaPucara,
+            imageAlt: "Ganado pastando en las alturas de Pucará.",
+            align: "left"
         },
         {
             icon: GraduationCap,
-            title: "Educación",
-            description: "Instituciones educativas públicas",
-            details: [
-                "Escuela Primaria 31176 (45 estudiantes)",
-                "Colegio Secundario CPED 31176 (63 alumnos)",
-                "Modalidad multigrado"
-            ]
+            title: "Educación para el Futuro",
+            description: "En Pucará funcionan dos instituciones educativas públicas: la Escuela Primaria 31176 y el Colegio Secundario CPED 31176. Juntas, atienden a más de 100 estudiantes, asegurando la formación de las nuevas generaciones de la comunidad.",
+            image: escuelaPucara,
+            imageAlt: "Fachada de una de las escuelas públicas en Pucará.",
+            align: "right"
         }
     ];
 
     return (
-        <section className="py-20 bg-gradient-to-br from-secondary/10 to-accent/10">
+        <section id="pucara" className="py-24 bg-background overflow-hidden">
             <div className="container mx-auto px-4">
-                {/* Encabezado */}
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                        San Francisco de Asís de{" "}
+                {/* --- ENCABEZADO Y STATS --- */}
+                <div className="text-center mb-20">
+                    <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+                        Conoce San Francisco de Asís de{" "}
                         <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                             Pucará
                         </span>
                     </h2>
-                    <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                        Centro poblado dentro del distrito de Morococha, a 4,392 msnm. Una comunidad que conserva
-                        vivas las tradiciones del altiplano peruano y enfrenta los desafíos del desarrollo moderno
-                        manteniendo su identidad cultural.
+                    <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+                        Un centro poblado que fusiona la riqueza de su herencia cultural con los desafíos del presente.
                     </p>
                 </div>
 
-                {/* Tarjetas de información */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {pucaraInfo.map((info, index) => (
-                        <div
-                            key={index}
-                            className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 hover:scale-105"
-                        >
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-                                    <info.icon className="h-6 w-6 text-primary-foreground" />
-                                </div>
-                                <h3 className="text-xl font-bold text-foreground">{info.title}</h3>
-                            </div>
-
-                            <p className="text-muted-foreground mb-4">{info.description}</p>
-
-                            <ul className="space-y-2">
-                                {info.details.map((detail, detailIndex) => (
-                                    <li key={detailIndex} className="flex items-center text-sm text-muted-foreground">
-                                        <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3"></div>
-                                        {detail}
-                                    </li>
-                                ))}
-                            </ul>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 max-w-4xl mx-auto">
+                    {stats.map((stat, index) => (
+                        <div key={index} className="bg-card border border-border/50 rounded-xl p-6 text-center flex flex-col items-center justify-center hover:bg-card/80 transition-colors">
+                            <stat.icon className="h-10 w-10 text-primary mb-3" />
+                            <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+                            <p className="text-sm text-muted-foreground">{stat.label}</p>
                         </div>
                     ))}
                 </div>
 
-                {/* Historia expandida */}
-                <div className="mt-16 bg-card border border-border rounded-xl p-8">
-                    <h3 className="text-2xl font-bold text-foreground mb-6 text-center">Historia</h3>
-                    <p className="text-muted-foreground leading-relaxed text-justify">
-                        Pucará enfrenta impactos sociales significativos derivados del reasentamiento de Morococha
-                        por el proyecto minero Toromocho, que comenzó a ejecutarse desde 2007 y reubicó a gran parte
-                        de la población. A pesar de estos desafíos, la comunidad mantiene su identidad cultural y
-                        sus tradiciones ancestrales, especialmente en la elaboración del famoso Torito de Pucará,
-                        símbolo de protección, abundancia y prosperidad que forma parte de sus rituales ancestrales.
-                    </p>
+                {/* --- SECCIONES DE CARACTERÍSTICAS CON IMAGEN --- */}
+                <div className="space-y-24">
+                    {features.map((feature, index) => (
+                        <div key={index} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center`}>
+                            <div className={`relative ${feature.align === 'right' ? 'lg:order-last' : ''}`}>
+                                <div className="aspect-w-4 aspect-h-3 rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+                                    <img
+                                        src={feature.image}
+                                        alt={feature.imageAlt}
+                                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                                    />
+                                </div>
+                                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-secondary/20 rounded-full blur-2xl -z-10"></div>
+                                <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/20 rounded-full blur-2xl -z-10"></div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div className="inline-flex items-center gap-3 bg-primary/10 text-primary px-4 py-2 rounded-full font-semibold">
+                                    <feature.icon className="h-5 w-5" />
+                                    <span>{feature.title}</span>
+                                </div>
+                                <h3 className="text-3xl font-bold text-foreground leading-tight">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-muted-foreground text-lg leading-relaxed">
+                                    {feature.description}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

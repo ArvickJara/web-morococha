@@ -12,7 +12,7 @@ Ejecutar Frontend:
 
 - cd fe-morococha
 
-- npm i
+- npm install
 
 - npm run dev
 

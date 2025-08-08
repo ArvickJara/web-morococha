@@ -25,7 +25,7 @@ const Header = () => {
     }, []);
 
     return (
-        <header className={`bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 border-b border-border transition-all duration-500 ${isScrolled ? 'mx-24 mt-8 rounded-xl shadow-lg' : ''
+        <header className={`bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 border-b border-border transition-all duration-500 ${isScrolled ? 'mx-4 md:mx-12 lg:mx-24 mt-4 md:mt-8 rounded-xl shadow-lg' : ''
             }`}>
             {/* Navegación principal */}
             <div className="container mx-auto px-4">
@@ -41,35 +41,35 @@ const Header = () => {
                         </a>
                     </div>
 
-                    {/* Menú desktop */}
-                    <nav className="hidden md:flex items-center space-x-8">
+                    {/* Menú desktop (ahora visible desde 'lg' en adelante) */}
+                    <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
                         {menuItems.map((item) => (
                             <a
                                 key={item.name}
                                 href={item.href}
                                 target={item.external ? "_blank" : undefined}
                                 rel={item.external ? "noopener noreferrer" : undefined}
-                                className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
+                                className="text-sm xl:text-base text-foreground hover:text-primary transition-colors duration-200 font-medium"
                             >
                                 {item.name}
                             </a>
                         ))}
                     </nav>
 
-                    {/* Botón menú móvil */}
+                    {/* Botón menú móvil (ahora se oculta desde 'lg' en adelante) */}
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="md:hidden"
+                        className="lg:hidden"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
                         {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                     </Button>
                 </div>
 
-                {/* Menú móvil */}
+                {/* Menú móvil (ahora se oculta desde 'lg' en adelante) */}
                 {isMenuOpen && (
-                    <div className="md:hidden py-4 border-t border-border">
+                    <div className="lg:hidden py-4 border-t border-border">
                         <nav className="flex flex-col space-y-2">
                             {menuItems.map((item) => (
                                 <a
