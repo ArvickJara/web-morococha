@@ -39,7 +39,8 @@ router.get('/', async (req, res) => {
     logger.endOperation('Obtener información municipalidad', { 
       nombre: municipalidad.nombre,
       redes: redes_sociales.length,
-      servicios: servicios.length
+      servicios: servicios.length,
+      tiene_presentacion: !!municipalidad.presentacion_url
     }, 'Municipalidad');
 
     res.status(200).json(response);
@@ -50,9 +51,17 @@ router.get('/', async (req, res) => {
 });
 
 // Actualizar información básica de la municipalidad (solo admin)
-router.put('/:id', protect(['admin']), parseBody(), async (req, res) => {
+router.put('/:id', protect(['admin']), parseBody('presentacion'), async (req, res) => {
   const { id } = req.params;
-  const { nombre, slogan, direccion, telefono, email, horarios_atencion } = req.body;
+  const { 
+    nombre, 
+    slogan, 
+    direccion, 
+    telefono, 
+    email, 
+    horarios_atencion,
+    presentacion_tipo 
+  } = req.body;
   
   logger.startOperation('Actualizar información municipalidad', { id }, 'Municipalidad');
 
@@ -70,6 +79,14 @@ router.put('/:id', protect(['admin']), parseBody(), async (req, res) => {
     if (telefono) updateData.telefono = telefono;
     if (email) updateData.email = email;
     if (horarios_atencion) updateData.horarios_atencion = horarios_atencion;
+    if (presentacion_tipo) updateData.presentacion_tipo = presentacion_tipo;
+    
+    // Si se subió nuevo archivo de presentación, actualizar URL
+    if (req.file) {
+      updateData.presentacion_url = `${req.protocol}://${req.get('host')}/public/uploads/${req.file.filename}`;
+      logger.info(`Nueva presentación para municipalidad ID ${id}: ${updateData.presentacion_url}`, 'Municipalidad');
+    }
+    
     updateData.updated_at = knex.fn.now();
 
     await knex('municipalidad').where('id', id).update(updateData);
@@ -77,10 +94,55 @@ router.put('/:id', protect(['admin']), parseBody(), async (req, res) => {
     logger.endOperation('Actualizar información municipalidad', { id, cambios: Object.keys(updateData) }, 'Municipalidad');
     logger.info(`Información de municipalidad ID ${id} actualizada. Campos modificados: ${Object.keys(updateData).join(', ')}`, 'Municipalidad');
     
-    res.status(200).json({ message: 'Información de municipalidad actualizada exitosamente' });
+    res.status(200).json({ 
+      message: 'Información de municipalidad actualizada exitosamente',
+      presentacion_url: updateData.presentacion_url || municipalidad.presentacion_url
+    });
   } catch (err) {
     logger.operationError('Actualizar información municipalidad', err, 'Municipalidad');
     res.status(500).json({ error: 'Error actualizando información de municipalidad.', details: err.message });
+  }
+});
+
+// Establecer presentación por URL externa (video de YouTube, etc.)
+router.put('/:id/presentacion-externa', protect(['admin']), async (req, res) => {
+  const { id } = req.params;
+  const { presentacion_url, presentacion_tipo } = req.body;
+  
+  logger.startOperation('Actualizar presentación externa municipalidad', { id }, 'Municipalidad');
+  
+  if (!presentacion_url) {
+    logger.warn('Intento de actualizar presentación sin URL', 'Municipalidad');
+    return res.status(400).json({ message: 'La URL de presentación es requerida.' });
+  }
+  
+  try {
+    const municipalidad = await knex('municipalidad').where('id', id).first();
+    if (!municipalidad) {
+      logger.warn(`Intento de actualizar municipalidad inexistente ID: ${id}`, 'Municipalidad');
+      return res.status(404).json({ message: 'Municipalidad no encontrada.' });
+    }
+    
+    await knex('municipalidad').where('id', id).update({
+      presentacion_url,
+      presentacion_tipo: presentacion_tipo || 'video',
+      updated_at: knex.fn.now()
+    });
+    
+    logger.endOperation('Actualizar presentación externa municipalidad', { 
+      id, 
+      tipo: presentacion_tipo || 'video' 
+    }, 'Municipalidad');
+    
+    logger.info(`Presentación externa de municipalidad ID ${id} actualizada: ${presentacion_url}`, 'Municipalidad');
+    
+    res.status(200).json({ 
+      message: 'Presentación externa de municipalidad actualizada exitosamente',
+      presentacion_url
+    });
+  } catch (err) {
+    logger.operationError('Actualizar presentación externa municipalidad', err, 'Municipalidad');
+    res.status(500).json({ error: 'Error actualizando presentación externa.', details: err.message });
   }
 });
 

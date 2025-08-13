@@ -6,15 +6,15 @@ const logger = require('../utils/logger');
 
 const router = express.Router();
 
-// Obtener todas las obras (público)
+// Obtener todas las proyectos (público)
 router.get('/', async (req, res) => {
   const { page = 1, limit = 10, estado, activa = true } = req.query;
   const offset = (page - 1) * limit;
   
-  logger.startOperation('Obtener obras', { page, limit, estado, activa }, 'Obras');
+  logger.startOperation('Obtener proyectos', { page, limit, estado, activa }, 'Proyectos');
 
   try {
-    let query = knex('obras').where('activa', activa === 'false' ? false : Boolean(activa));
+    let query = knex('proyectos').where('activa', activa === 'false' ? false : Boolean(activa));
     
     if (estado) {
       query = query.where('estado', estado);
@@ -23,21 +23,21 @@ router.get('/', async (req, res) => {
     const total = await query.clone().count('* as total').first();
     const totalPages = Math.ceil(total.total / limit);
 
-    const obras = await query
+    const proyectos = await query
       .select('*')
       .orderBy('created_at', 'desc')
       .limit(limit)
       .offset(offset);
 
-    logger.endOperation('Obtener obras', { 
-      count: obras.length, 
+    logger.endOperation('Obtener proyectos', { 
+      count: proyectos.length, 
       total: parseInt(total.total), 
       page, 
       totalPages 
-    }, 'Obras');
+    }, 'Proyectos');
 
     res.status(200).json({
-      obras,
+      proyectos,
       pagination: {
         total: parseInt(total.total),
         totalPages,
@@ -46,8 +46,8 @@ router.get('/', async (req, res) => {
       },
     });
   } catch (err) {
-    logger.operationError('Obtener obras', err, 'Obras');
-    res.status(500).json({ error: 'Error obteniendo obras.', details: err.message });
+    logger.operationError('Obtener proyectos', err, 'Proyectos');
+    res.status(500).json({ error: 'Error obteniendo proyectos.', details: err.message });
   }
 });
 
@@ -55,20 +55,20 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   
-  logger.startOperation('Obtener obra por ID', { id }, 'Obras');
+  logger.startOperation('Obtener obra por ID', { id }, 'Proyectos');
 
   try {
-    const obra = await knex('obras').where('id', id).first();
+    const obra = await knex('proyectos').where('id', id).first();
 
     if (!obra) {
-      logger.warn(`Obra con ID ${id} no encontrada`, 'Obras');
+      logger.warn(`Obra con ID ${id} no encontrada`, 'Proyectos');
       return res.status(404).json({ message: 'Obra no encontrada.' });
     }
 
-    logger.endOperation('Obtener obra por ID', { titulo: obra.titulo }, 'Obras');
+    logger.endOperation('Obtener obra por ID', { titulo: obra.titulo }, 'Proyectos');
     res.status(200).json({ obra });
   } catch (err) {
-    logger.operationError('Obtener obra por ID', err, 'Obras');
+    logger.operationError('Obtener obra por ID', err, 'Proyectos');
     res.status(500).json({ error: 'Error obteniendo la obra.', details: err.message });
   }
 });
@@ -78,10 +78,10 @@ router.post('/', protect(['admin']), parseBody('imagen'), async (req, res) => {
   try {
     const { titulo, descripcion, ubicacion, fecha_inicio, fecha_fin, presupuesto, estado, activa } = req.body;
     
-    logger.startOperation('Crear obra', { titulo, ubicacion }, 'Obras');
+    logger.startOperation('Crear obra', { titulo, ubicacion }, 'Proyectos');
     
     if (!titulo) {
-      logger.warn('Intento de crear obra sin título', 'Obras');
+      logger.warn('Intento de crear obra sin título', 'Proyectos');
       return res.status(400).json({ message: 'El título es requerido.' });
     }
 
@@ -89,10 +89,10 @@ router.post('/', protect(['admin']), parseBody('imagen'), async (req, res) => {
     let imagen_url = null;
     if (req.file) {
       imagen_url = `${req.protocol}://${req.get('host')}/public/uploads/${req.file.filename}`;
-      logger.info(`Imagen adjunta a obra: ${imagen_url}`, 'Obras');
+      logger.info(`Imagen adjunta a obra: ${imagen_url}`, 'Proyectos');
     }
 
-    const [obraId] = await knex('obras').insert({
+    const [obraId] = await knex('proyectos').insert({
       titulo,
       descripcion: descripcion || null,
       ubicacion: ubicacion || null,
@@ -106,8 +106,8 @@ router.post('/', protect(['admin']), parseBody('imagen'), async (req, res) => {
       updated_at: knex.fn.now()
     });
 
-    logger.endOperation('Crear obra', { id: obraId, titulo }, 'Obras');
-    logger.info(`Nueva obra creada: "${titulo}" (ID: ${obraId})`, 'Obras');
+    logger.endOperation('Crear obra', { id: obraId, titulo }, 'Proyectos');
+    logger.info(`Nueva obra creada: "${titulo}" (ID: ${obraId})`, 'Proyectos');
 
     res.status(201).json({ 
       message: 'Obra creada exitosamente', 
@@ -115,7 +115,7 @@ router.post('/', protect(['admin']), parseBody('imagen'), async (req, res) => {
       imagen_url 
     });
   } catch (err) {
-    logger.operationError('Crear obra', err, 'Obras');
+    logger.operationError('Crear obra', err, 'Proyectos');
     res.status(500).json({ error: 'Error creando la obra.', details: err.message });
   }
 });
@@ -124,12 +124,12 @@ router.post('/', protect(['admin']), parseBody('imagen'), async (req, res) => {
 router.put('/:id', protect(['admin']), parseBody('imagen'), async (req, res) => {
   const { id } = req.params;
   
-  logger.startOperation('Actualizar obra', { id }, 'Obras');
+  logger.startOperation('Actualizar obra', { id }, 'Proyectos');
   
   try {
-    const obra = await knex('obras').where('id', id).first();
+    const obra = await knex('proyectos').where('id', id).first();
     if (!obra) {
-      logger.warn(`Intento de actualizar obra inexistente ID: ${id}`, 'Obras');
+      logger.warn(`Intento de actualizar obra inexistente ID: ${id}`, 'Proyectos');
       return res.status(404).json({ message: 'Obra no encontrada.' });
     }
 
@@ -148,22 +148,22 @@ router.put('/:id', protect(['admin']), parseBody('imagen'), async (req, res) => 
     // Si se subió nueva imagen, actualizar URL
     if (req.file) {
       updateData.imagen_url = `${req.protocol}://${req.get('host')}/public/uploads/${req.file.filename}`;
-      logger.info(`Nueva imagen para obra ID ${id}: ${updateData.imagen_url}`, 'Obras');
+      logger.info(`Nueva imagen para obra ID ${id}: ${updateData.imagen_url}`, 'Proyectos');
     }
     
     updateData.updated_at = knex.fn.now();
 
-    await knex('obras').where('id', id).update(updateData);
+    await knex('proyectos').where('id', id).update(updateData);
 
-    logger.endOperation('Actualizar obra', { id, cambios: Object.keys(updateData) }, 'Obras');
-    logger.info(`Obra ID ${id} actualizada. Campos modificados: ${Object.keys(updateData).join(', ')}`, 'Obras');
+    logger.endOperation('Actualizar obra', { id, cambios: Object.keys(updateData) }, 'Proyectos');
+    logger.info(`Obra ID ${id} actualizada. Campos modificados: ${Object.keys(updateData).join(', ')}`, 'Proyectos');
 
     res.status(200).json({ 
       message: 'Obra actualizada exitosamente',
       imagen_url: updateData.imagen_url || obra.imagen_url
     });
   } catch (err) {
-    logger.operationError('Actualizar obra', err, 'Obras');
+    logger.operationError('Actualizar obra', err, 'Proyectos');
     res.status(500).json({ error: 'Error actualizando la obra.', details: err.message });
   }
 });
@@ -172,23 +172,23 @@ router.put('/:id', protect(['admin']), parseBody('imagen'), async (req, res) => 
 router.delete('/:id', protect(['admin']), async (req, res) => {
   const { id } = req.params;
 
-  logger.startOperation('Eliminar obra', { id }, 'Obras');
+  logger.startOperation('Eliminar obra', { id }, 'Proyectos');
 
   try {
-    const obra = await knex('obras').where('id', id).first();
+    const obra = await knex('proyectos').where('id', id).first();
     if (!obra) {
-      logger.warn(`Intento de eliminar obra inexistente ID: ${id}`, 'Obras');
+      logger.warn(`Intento de eliminar obra inexistente ID: ${id}`, 'Proyectos');
       return res.status(404).json({ message: 'Obra no encontrada.' });
     }
 
-    await knex('obras').where('id', id).del();
+    await knex('proyectos').where('id', id).del();
     
-    logger.endOperation('Eliminar obra', { id, titulo: obra.titulo }, 'Obras');
-    logger.info(`Obra ID ${id} "${obra.titulo}" eliminada`, 'Obras');
+    logger.endOperation('Eliminar obra', { id, titulo: obra.titulo }, 'Proyectos');
+    logger.info(`Obra ID ${id} "${obra.titulo}" eliminada`, 'Proyectos');
     
     res.status(200).json({ message: 'Obra eliminada exitosamente.' });
   } catch (err) {
-    logger.operationError('Eliminar obra', err, 'Obras');
+    logger.operationError('Eliminar obra', err, 'Proyectos');
     res.status(500).json({ error: 'Error eliminando la obra.', details: err.message });
   }
 });

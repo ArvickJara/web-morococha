@@ -7,6 +7,8 @@ exports.up = function (knex) {
     table.string('telefono', 20).nullable();
     table.string('email', 255).nullable();
     table.string('horarios_atencion', 200).nullable();
+    table.text('presentacion_url').nullable(); // URL para video o imagen de presentación
+    table.string('presentacion_tipo', 20).nullable().defaultTo('imagen'); // Tipo: 'video' o 'imagen'
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at').defaultTo(knex.fn.now());
   });
