@@ -1,5 +1,5 @@
 exports.up = function (knex) {
-  return knex.schema.createTable('obras', function (table) {
+  return knex.schema.createTable('proyectos', function (table) {
     table.increments('id').primary().unsigned();
     table.string('titulo', 200).notNullable();
     table.text('descripcion').nullable();
@@ -16,5 +16,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTableIfExists('obras');
+  return knex.schema.dropTableIfExists('proyectos');
 };

@@ -34,10 +34,20 @@ const miembrosRoutes = require('./miembros');
 router.use('/miembros', miembrosRoutes);
 logger.info('Rutas de miembros registradas', 'Routes');
 
-// Rutas de obras
-const obrasRoutes = require('./obras');
-router.use('/obras', obrasRoutes);
-logger.info('Rutas de obras registradas', 'Routes');
+// Rutas de proyectos
+const proyectosRoutes = require('./proyectos');
+router.use('/proyectos', proyectosRoutes);
+logger.info('Rutas de proyectos registradas', 'Routes');
+
+// Rutas de tipos de convocatorias
+const convocatoriaTiposRoutes = require('./convocatoria-tipos');
+router.use('/convocatoria-tipos', convocatoriaTiposRoutes);
+logger.info('Rutas de tipos de convocatorias registradas', 'Routes');
+
+// Rutas de convocatorias
+const convocatoriasRoutes = require('./convocatorias');
+router.use('/convocatorias', convocatoriasRoutes);
+logger.info('Rutas de convocatorias registradas', 'Routes');
 
 logger.info('Todas las rutas API registradas correctamente', 'Routes');
 module.exports = router;
