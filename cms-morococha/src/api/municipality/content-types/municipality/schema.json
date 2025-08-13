@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "municipalities",
+  "info": {
+    "singularName": "municipality",
+    "pluralName": "municipalities",
+    "displayName": "municipality"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slogan": {
+      "type": "text"
+    },
+    "address": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "business_hours": {
+      "type": "string"
+    },
+    "home_page_content": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}
