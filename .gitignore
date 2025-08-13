@@ -1,27 +1,55 @@
-# Node.js 
+### General ###
+# Archivos de variables de entorno. ¡Nunca subir secretos!
+.env
+.env.*
+!.env.example
+
+# Dependencias de Node.js
 node_modules/
 
-# .env file for sensitive data like database credentials and secret keys
-.env
-
-# Log files
+# Registros (Logs)
 *.log
+npm-debug.log*
+yarn-error.log
+pnpm-debug.log*
 
-# Directory for build files (if using build tools like webpack or vite)
-dist/
-
-# Knex migration files and other generated files
-*.sql
-*.sqlite
-
-# Mac system files
+# Archivos de sistema operativo
 .DS_Store
-
-# Windows system files
 Thumbs.db
 
-# image files
-public/uploads/*.jpg
-public/uploads/*.jpeg
-public/uploads/*.png
-public/uploads/*.gif
+# Archivos de configuración de editores
+.vscode/
+.idea/
+
+### Frontend (fe-morococha - Vite/React) ###
+# Directorio de compilación de producción
+fe-morococha/dist
+fe-morococha/build
+
+# Cache de Vite
+fe-morococha/.vite/
+
+# Reportes de cobertura de pruebas
+fe-morococha/coverage/
+
+### Backend (cms-morococha - Strapi) ###
+# Directorio de compilación de Strapi
+cms-morococha/build/
+
+# Cache de Strapi
+cms-morococha/.cache/
+
+# Archivos subidos por los usuarios (imágenes, videos, documentos)
+# Estos deben ser manejados por un proveedor externo (S3, Cloudinary) en producción.
+cms-morococha/public/uploads/
+
+# Exportaciones de datos de Strapi
+cms-morococha/exports/
+
+# Bases de datos locales de SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# Archivos temporales de Strapi
+cms-morococha/.tmp/

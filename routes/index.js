@@ -1,5 +1,3 @@
-// routes/index.js
-
 const express = require('express');
 const logger = require('../utils/logger');
 
@@ -40,10 +38,6 @@ logger.info('Rutas de miembros registradas', 'Routes');
 const obrasRoutes = require('./obras');
 router.use('/obras', obrasRoutes);
 logger.info('Rutas de obras registradas', 'Routes');
-
-// Comentar rutas de upload ya que está integrado en noticias
-// const uploadRoutes = require('./upload');
-// router.use('/upload', uploadRoutes);
 
 logger.info('Todas las rutas API registradas correctamente', 'Routes');
 module.exports = router;
