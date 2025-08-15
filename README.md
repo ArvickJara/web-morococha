@@ -15,7 +15,7 @@ Este proyecto incluye un backend basado en Strapi (CMS) y un frontend llamado **
 
 ```bash
 git clone https://github.com/ArvickJara/web-morococha
-cd GOB/web-morococha
+cd web-morococha
 ```
 
 ---
@@ -49,7 +49,7 @@ mkdir public\uploads
 npm run develop
 ```
 
-El panel de administración estará disponible en [http://localhost:1337/admin](http://localhost:1337/admin).
+El panel de administración estará disponible en [http://localhost:1337/admin].
 
 ---
 
