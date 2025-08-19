@@ -6,7 +6,7 @@ const HeroSection = () => {
     const stats = [
         { icon: Users, label: "Ciudadanos", value: "5,155+" },
         { icon: Building, label: "Servicios", value: "7+" },
-        { icon: Pickaxe, label: "Proyectos Mineros", value: "3+" },
+        { icon: Pickaxe, label: "Proyectos", value: "3+" },
     ];
 
     return (
@@ -27,7 +27,6 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
             </div>
 
-            {/* --- CONTENIDO PRINCIPAL (ALINEADO A LA IZQUIERDA) --- */}
             <div className="relative z-10 container mx-auto px-4 py-20 flex flex-col items-start text-left">
                 <div className="max-w-3xl">
                     {/* Título principal */}
