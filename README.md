@@ -46,7 +46,7 @@ mkdir public\uploads
 #### e) Crear y configurar .env
 
 ```bash
-Clonar .env.example y renombrar a env realizaondo su configuración
+Clonar .env.example y renombrar a .env realizaondo su configuración
 ```
 
 #### e) Ejecutar el servidor de desarrollo
