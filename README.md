@@ -15,7 +15,7 @@ Este proyecto incluye un backend basado en Strapi (CMS) y un frontend llamado **
 
 ```bash
 git clone https://github.com/ArvickJara/web-morococha
-cd GOB/web-morococha
+cd web-morococha
 ```
 
 ---
@@ -43,7 +43,13 @@ npm install better-sqlite3 --save
 mkdir public\uploads
 ```
 
-#### d) Ejecutar el servidor de desarrollo
+#### e) Crear y configurar .env
+
+```bash
+Clonar .env.example y renombrar a env realizaondo su configuración
+```
+
+#### e) Ejecutar el servidor de desarrollo
 
 ```bash
 npm run develop
