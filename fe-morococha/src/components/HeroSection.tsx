@@ -131,7 +131,7 @@ const HeroSection = () => {
 
             {/* Lema institucional con rebote */}
             <p className="absolute z-20 bottom-8 inset-x-0 text-center text-lg md:text-xl text-white font-semibold italic animate-bounce">
-                "{heroData?.Lema_institucional || "Gestión con oportunidad para todos"}"
+                "{heroData?.Lema_institucional}"
             </p>
         </section>
     );
