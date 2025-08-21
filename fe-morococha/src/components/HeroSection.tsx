@@ -1,13 +1,49 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Building, Pickaxe } from "lucide-react";
-import heroVideo from "@/assets/morococha.mp4";
+import { getHeroSection } from '@/services/heroService';
+import type { HeroSectionType } from '@/services/heroService';
+import { useEffect, useState } from "react";
+import heroVideoFallback from "@/assets/morococha.mp4";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:1337";
 
 const HeroSection = () => {
+    const [heroData, setHeroData] = useState<HeroSectionType | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getHeroSection();
+                setHeroData(data);
+            } catch (error) {
+                console.error('Error en componente:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const stats = [
-        { icon: Users, label: "Ciudadanos", value: "5,155+" },
-        { icon: Building, label: "Servicios", value: "7+" },
-        { icon: Pickaxe, label: "Proyectos", value: "3+" },
+        {
+            icon: Users,
+            label: "Ciudadanos",
+            value: heroData?.Ciudadanos ? `${heroData.Ciudadanos.toLocaleString()}+` : "5,155+"
+        },
+        {
+            icon: Building,
+            label: "Servicios",
+            value: heroData?.Servicios ? `${heroData.Servicios}+` : "7+"
+        },
+        {
+            icon: Pickaxe,
+            label: "Proyectos",
+            value: heroData?.Proyectos ? `${heroData.Proyectos}+` : "3+"
+        },
     ];
+
+    const videoSrc = heroData?.imgenVideo?.url
+        ? `${API_URL}${heroData.imgenVideo.url}`
+        : heroVideoFallback;
 
     return (
         <section className="relative min-h-[90vh] flex items-center justify-center text-center overflow-hidden">
@@ -19,9 +55,9 @@ const HeroSection = () => {
                     muted
                     loop
                     playsInline
-                    poster="/path/to/poster-image.jpg" // Agrega un póster para carga rápida
+                    poster="/path/to/poster-image.jpg"
                 >
-                    <source src={heroVideo} type="video/mp4" />
+                    <source src={videoSrc} type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
@@ -31,17 +67,21 @@ const HeroSection = () => {
                 <div className="max-w-3xl">
                     {/* Título principal */}
                     <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight animate-fade-in-down">
-                        Construyendo el{" "}
-                        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                            futuro
-                        </span>{" "}
-                        de nuestra ciudad
+                        {heroData?.Titulo_principal || (
+                            <>
+                                Construyendo el{" "}
+                                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                                    futuro
+                                </span>{" "}
+                                de nuestra ciudad
+                            </>
+                        )}
                     </h1>
 
                     {/* Descripción */}
                     <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed animate-fade-in-up animation-delay-300">
-                        Trabajamos cada día para mejorar la calidad de vida de nuestros ciudadanos
-                        a través de servicios eficientes y proyectos innovadores.
+                        {heroData?.Descripcion ||
+                            "Trabajamos cada día para mejorar la calidad de vida de nuestros ciudadanos a través de servicios eficientes y proyectos innovadores."}
                     </p>
 
                     {/* Botones de Acción */}
@@ -87,11 +127,11 @@ const HeroSection = () => {
                         </div>
                     ))}
                 </div>
-
             </div>
+
             {/* Lema institucional con rebote */}
             <p className="absolute z-20 bottom-8 inset-x-0 text-center text-lg md:text-xl text-white font-semibold italic animate-bounce">
-                "Gestión con oportunidad para todos"
+                "{heroData?.Lema_institucional || "Gestión con oportunidad para todos"}"
             </p>
         </section>
     );

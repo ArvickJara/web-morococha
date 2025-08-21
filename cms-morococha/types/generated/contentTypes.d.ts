@@ -532,7 +532,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
 export interface ApiHeroSectionHeroSection extends Struct.SingleTypeSchema {
   collectionName: 'hero_sections';
   info: {
-    displayName: 'Hero';
+    displayName: 'Cabecera Principal';
     pluralName: 'hero-sections';
     singularName: 'hero-section';
   };
