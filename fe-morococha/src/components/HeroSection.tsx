@@ -5,7 +5,7 @@ import type { HeroSectionType } from '@/services/heroService';
 import { useEffect, useState } from "react";
 import heroVideoFallback from "@/assets/morococha.mp4";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:1337";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:133745";
 
 const HeroSection = () => {
     const [heroData, setHeroData] = useState<HeroSectionType | null>(null);

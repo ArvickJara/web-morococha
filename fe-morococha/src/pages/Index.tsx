@@ -3,6 +3,8 @@ import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import NewsSection from "@/components/NewsSection";
 import Footer from "@/components/Footer";
+import RadioPlayer from "@/components/RadioPlayer";
+
 
 const Index = () => {
     return (
@@ -12,6 +14,7 @@ const Index = () => {
             <ServicesSection />
             <NewsSection />
             <Footer />
+            <RadioPlayer />
         </div>
     );
 };
