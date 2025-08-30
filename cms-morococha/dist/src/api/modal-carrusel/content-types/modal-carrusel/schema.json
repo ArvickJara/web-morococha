@@ -1,0 +1,28 @@
+{
+    "kind": "collectionType",
+    "collectionName": "modal_carrusels",
+    "info": {
+        "singularName": "modal-carrusel",
+        "pluralName": "modal-carrusels",
+        "displayName": "Modal Carrusel"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "imagen": {
+            "type": "media",
+            "multiple": true,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "nombre": {
+            "type": "string"
+        }
+    }
+}

@@ -19,7 +19,7 @@ export interface HeroSectionType {
 export const getHeroSection = async (): Promise<HeroSectionType> => {
     try {
         // Usamos la instancia de api (axios) en lugar de fetch
-        const { data: responseData } = await api.get('/api/hero-section?populate=imgenVideo');
+        const { data: responseData } = await api.get('/hero-section?populate=imgenVideo');
         const data = responseData.data;
 
         // Si no hay datos, lanzar un error

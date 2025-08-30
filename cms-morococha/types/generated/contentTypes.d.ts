@@ -456,6 +456,39 @@ export interface ApiHeroSectionHeroSection extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiModalCarruselModalCarrusel
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'modal_carrusels';
+  info: {
+    displayName: 'Modal Carrusel';
+    pluralName: 'modal-carrusels';
+    singularName: 'modal-carrusel';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    imagen: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::modal-carrusel.modal-carrusel'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
   collectionName: 'noticias';
   info: {
@@ -1095,6 +1128,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::hero-section.hero-section': ApiHeroSectionHeroSection;
+      'api::modal-carrusel.modal-carrusel': ApiModalCarruselModalCarrusel;
       'api::noticia.noticia': ApiNoticiaNoticia;
       'api::radio-link.radio-link': ApiRadioLinkRadioLink;
       'api::rede.rede': ApiRedeRede;

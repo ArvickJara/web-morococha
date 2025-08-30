@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 
 // instancia de axios con la configuración base
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:1337',
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:1337/api',
     headers: {
         'Content-Type': 'application/json',
     },
