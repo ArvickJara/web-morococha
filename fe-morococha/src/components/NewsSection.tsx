@@ -134,12 +134,12 @@ const NewsSection = () => {
                 </div>
 
                 {/* Botón ver todas las noticias */}
-                <div className="text-center mt-12">
+                {/* <div className="text-center mt-12">
                     <Button size="lg" variant="outline">
                         Ver Todas las Noticias
                         <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
-                </div>
+                </div> */}
             </div>
         </section>
     );
