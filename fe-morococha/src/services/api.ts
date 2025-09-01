@@ -8,6 +8,10 @@ const api = axios.create({
     },
 });
 
+// URL base para assets (imágenes, archivos, etc.)
+export const ASSETS_URL =
+  import.meta.env.VITE_ASSETS_URL || 'http://localhost:1337';
+
 // Interceptor para manejo global de errores
 api.interceptors.response.use(
     (response) => response,
