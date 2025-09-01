@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "convocatorias",
+  "info": {
+    "singularName": "convocatoria",
+    "pluralName": "convocatorias",
+    "displayName": "Convocatoria"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre_de_proceso": {
+      "type": "string",
+      "required": true
+    },
+    "bases": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "resultado_curricular": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "resultado_entrevista": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "resultado_final": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "comunicados": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "tipos_convocatoria": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tipo-convocatoria.tipo-convocatoria",
+      "inversedBy": "convocatorias"
+    },
+    "estado": {
+      "type": "enumeration",
+      "default": "no_iniciado",
+      "enum": [
+        "no_iniciado",
+        "en_proceso",
+        "culminado"
+      ]
+    }
+  }
+}

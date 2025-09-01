@@ -373,6 +373,48 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiConvocatoriaConvocatoria
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'convocatorias';
+  info: {
+    displayName: 'Convocatoria';
+    pluralName: 'convocatorias';
+    singularName: 'convocatoria';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bases: Schema.Attribute.Media<'images' | 'files', true>;
+    comunicados: Schema.Attribute.Media<'images' | 'files', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    estado: Schema.Attribute.Enumeration<
+      ['no_iniciado', 'en_proceso', 'culminado']
+    > &
+      Schema.Attribute.DefaultTo<'no_iniciado'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::convocatoria.convocatoria'
+    > &
+      Schema.Attribute.Private;
+    nombre_de_proceso: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    resultado_curricular: Schema.Attribute.Media<'images' | 'files', true>;
+    resultado_entrevista: Schema.Attribute.Media<'images' | 'files', true>;
+    resultado_final: Schema.Attribute.Media<'images' | 'files', true>;
+    tipos_convocatoria: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::tipo-convocatoria.tipo-convocatoria'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHeroSectionHeroSection extends Struct.SingleTypeSchema {
   collectionName: 'hero_sections';
   info: {
@@ -611,6 +653,40 @@ export interface ApiServicioServicio extends Struct.CollectionTypeSchema {
       'api::servicio.servicio'
     > &
       Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTipoConvocatoriaTipoConvocatoria
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'tipo_convocatorias';
+  info: {
+    displayName: 'Tipos Convocatoria';
+    pluralName: 'tipo-convocatorias';
+    singularName: 'tipo-convocatoria';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    convocatorias: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::convocatoria.convocatoria'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    imagen: Schema.Attribute.Media<'images' | 'files'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tipo-convocatoria.tipo-convocatoria'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1127,12 +1203,14 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::convocatoria.convocatoria': ApiConvocatoriaConvocatoria;
       'api::hero-section.hero-section': ApiHeroSectionHeroSection;
       'api::modal-carrusel.modal-carrusel': ApiModalCarruselModalCarrusel;
       'api::noticia.noticia': ApiNoticiaNoticia;
       'api::radio-link.radio-link': ApiRadioLinkRadioLink;
       'api::rede.rede': ApiRedeRede;
       'api::servicio.servicio': ApiServicioServicio;
+      'api::tipo-convocatoria.tipo-convocatoria': ApiTipoConvocatoriaTipoConvocatoria;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

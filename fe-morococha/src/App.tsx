@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Pucara from "./pages/Pucara";
+import Convocatorias from "./pages/Convocatorias";
+import ConvocatoriaDetalle from "@/pages/ConvocatoriaDetalle";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +20,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/pucara" element={<Pucara />} />
+          <Route path="/convocatorias" element={<Convocatorias />} />
+          <Route path="/convocatorias/:documentId" element={<ConvocatoriaDetalle />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

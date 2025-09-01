@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipo_convocatorias",
+  "info": {
+    "singularName": "tipo-convocatoria",
+    "pluralName": "tipo-convocatorias",
+    "displayName": "Tipos Convocatoria"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "convocatorias": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::convocatoria.convocatoria",
+      "mappedBy": "tipos_convocatoria"
+    }
+  }
+}
