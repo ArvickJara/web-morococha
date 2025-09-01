@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,8 +13,16 @@ import {
     ArrowRight
 } from "lucide-react";
 import EscudoGray from "@/assets/escudo_grayscale.png";
+import { getRedeData } from "@/services/redeService";
+import type { RedeData } from "@/services/redeService";
 
 const Footer = () => {
+    const [rede, setRede] = useState<RedeData | null>(null);
+
+    useEffect(() => {
+        getRedeData().then(setRede);
+    }, []);
+
     const quickLinks = [
         { name: "Trámites en Línea", href: "#" },
         { name: "Pagos Municipales", href: "#" },
@@ -31,11 +40,12 @@ const Footer = () => {
         { name: "Comercialización" }
     ];
 
+    // Usa los enlaces de la API si existen, si no, deja el valor por defecto
     const socialLinks = [
-        { name: "Facebook", icon: Facebook, href: "https://www.facebook.com/munidemorococha" },
-        { name: "Twitter", icon: Twitter, href: "#" },
-        { name: "Instagram", icon: Instagram, href: "#" },
-        { name: "YouTube", icon: Youtube, href: "#" }
+        { name: "Facebook", icon: Facebook, href: rede?.facebook || "https://www.facebook.com/munidemorococha" },
+        { name: "Twitter", icon: Twitter, href: rede?.Twitter || "#" },
+        { name: "Instagram", icon: Instagram, href: rede?.Instagram || "#" },
+        { name: "YouTube", icon: Youtube, href: rede?.YouTube || "#" }
     ];
 
     return (
@@ -69,7 +79,9 @@ const Footer = () => {
                                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                                 <div>
                                     <p className="font-medium">Teléfono</p>
-                                    <p className="text-background/70 text-sm">(555) 123-4567</p>
+                                    <p className="text-background/70 text-sm">
+                                        {rede?.Telefono || "(555) 123-4567"}
+                                    </p>
                                 </div>
                             </div>
 
@@ -77,7 +89,9 @@ const Footer = () => {
                                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                                 <div>
                                     <p className="font-medium">Email</p>
-                                    <p className="text-background/70 text-sm">mesadepartesmdm2023.2026@gmail.com</p>
+                                    <p className="text-background/70 text-sm">
+                                        {rede?.Email || "mesadepartesmdm2023.2026@gmail.com"}
+                                    </p>
                                 </div>
                             </div>
 
@@ -90,24 +104,6 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
-
-                    {/* Enlaces rápidos */}
-                    {/* <div>
-                        <h4 className="font-bold text-lg mb-6">Enlaces Rápidos</h4>
-                        <ul className="space-y-3">
-                            {quickLinks.map((link, index) => (
-                                <li key={index}>
-                                    <a
-                                        href={link.href}
-                                        className="text-background/70 hover:text-primary transition-colors duration-200 flex items-center group"
-                                    >
-                                        <ArrowRight className="h-4 w-4 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                        {link.name}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div> */}
 
                     {/* Servicios */}
                     <div>
@@ -127,8 +123,6 @@ const Footer = () => {
                     {/* Newsletter y redes sociales */}
                     <div>
                         <h4 className="font-bold text-lg mb-6">Mantente Informado</h4>
-
-
                         <div>
                             <h5 className="font-medium mb-4">Síguenos</h5>
                             <div className="flex gap-3">
@@ -138,6 +132,8 @@ const Footer = () => {
                                         href={social.href}
                                         className="w-10 h-10 bg-background/10 rounded-lg flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-200"
                                         aria-label={social.name}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                     >
                                         <social.icon className="h-5 w-5" />
                                     </a>
@@ -153,7 +149,6 @@ const Footer = () => {
                         <div className="text-background/70 text-sm">
                             © 2024 Imagen Institucional - Municipalidad de Morococha. Todos los derechos reservados.
                         </div>
-
                     </div>
                 </div>
             </div>

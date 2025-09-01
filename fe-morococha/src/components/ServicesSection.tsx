@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,6 +10,7 @@ import {
     FileUser,
     ShoppingCart,
 } from "lucide-react";
+import { getRedeData } from "@/services/redeService";
 
 const WhatsAppIcon = () => (
     <svg className="mr-2 h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
@@ -17,6 +19,14 @@ const WhatsAppIcon = () => (
 );
 
 const ServicesSection = () => {
+    const [whatsAppNumber, setWhatsAppNumber] = useState<string>("");
+
+    useEffect(() => {
+        getRedeData().then(data => {
+            if (data?.WhatsApp) setWhatsAppNumber(data.WhatsApp);
+        });
+    }, []);
+
     const services = [
         {
             icon: FileText,
@@ -84,17 +94,18 @@ const ServicesSection = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                     {services.map((service, index) => (
-                        <Card key={index} className="group hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 border-0 bg-card hover:bg-card/95 hover:scale-[1.02]">                            <CardHeader className="pb-4">
-                            <div className={`w-12 h-12 ${service.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                                <service.icon className="h-6 w-6 text-white" />
-                            </div>
-                            <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                                {service.title}
-                            </CardTitle>
-                            <CardDescription className="text-muted-foreground">
-                                {service.description}
-                            </CardDescription>
-                        </CardHeader>
+                        <Card key={index} className="group hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 border-0 bg-card hover:bg-card/95 hover:scale-[1.02]">
+                            <CardHeader className="pb-4">
+                                <div className={`w-12 h-12 ${service.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                                    <service.icon className="h-6 w-6 text-white" />
+                                </div>
+                                <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                                    {service.title}
+                                </CardTitle>
+                                <CardDescription className="text-muted-foreground">
+                                    {service.description}
+                                </CardDescription>
+                            </CardHeader>
                             <CardContent>
                                 <ul className="space-y-2 mb-6">
                                     {service.features.map((feature, featureIndex) => (
@@ -104,7 +115,6 @@ const ServicesSection = () => {
                                         </li>
                                     ))}
                                 </ul>
-
                             </CardContent>
                         </Card>
                     ))}
@@ -124,7 +134,13 @@ const ServicesSection = () => {
                                 size="lg"
                                 style={{ backgroundColor: '#447E4E' }}
                                 className="animate-bounce hover:opacity-90 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300"
-                                onClick={() => window.open('https://wa.me/51918363299?text=Hola,%20necesito%20ayuda%20con%20un%20trámite', '_blank')}
+                                onClick={() =>
+                                    window.open(
+                                        `https://wa.me/${whatsAppNumber}?text=Hola,%20necesito%20ayuda%20con%20un%20trámite`,
+                                        '_blank'
+                                    )
+                                }
+                                disabled={!whatsAppNumber}
                             >
                                 <WhatsAppIcon />
                                 Contactar por WhatsApp

@@ -1,0 +1,50 @@
+{
+  "kind": "singleType",
+  "collectionName": "redes",
+  "info": {
+    "singularName": "rede",
+    "pluralName": "redes",
+    "displayName": "Redes Sociales"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "WhatsApp": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "facebook": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Twitter": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Instagram": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "YouTube": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Telefono": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Email": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

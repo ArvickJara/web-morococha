@@ -373,77 +373,96 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAboutAbout extends Struct.SingleTypeSchema {
-  collectionName: 'abouts';
+export interface ApiHeroSectionHeroSection extends Struct.SingleTypeSchema {
+  collectionName: 'hero_sections';
   info: {
-    description: 'Write about yourself and the content you create';
-    displayName: 'About';
-    pluralName: 'abouts';
-    singularName: 'about';
+    displayName: 'Cabecera Principal';
+    pluralName: 'hero-sections';
+    singularName: 'hero-section';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
   };
   attributes: {
-    blocks: Schema.Attribute.DynamicZone<
-      ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
-    >;
+    Ciudadanos: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'> &
-      Schema.Attribute.Private;
+    Descripcion: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    imgenVideo: Schema.Attribute.Media<'images' | 'files' | 'videos'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    Lema_institucional: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 5;
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::hero-section.hero-section'
+    >;
+    Proyectos: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
+    Servicios: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Titulo_principal: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
 }
 
-export interface ApiAnnouncementTypeAnnouncementType
+export interface ApiModalCarruselModalCarrusel
   extends Struct.CollectionTypeSchema {
-  collectionName: 'announcement_types';
+  collectionName: 'modal_carrusels';
   info: {
-    displayName: 'announcement_type';
-    pluralName: 'announcement-types';
-    singularName: 'announcement-type';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    announcements: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::announcement.announcement'
-    >;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    is_active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::announcement-type.announcement-type'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiAnnouncementAnnouncement
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'announcements';
-  info: {
-    displayName: 'announcement';
-    pluralName: 'announcements';
-    singularName: 'announcement';
+    displayName: 'Modal Carrusel';
+    pluralName: 'modal-carrusels';
+    singularName: 'modal-carrusel';
   };
   options: {
     draftAndPublish: true;
@@ -452,89 +471,30 @@ export interface ApiAnnouncementAnnouncement
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    curriculum_result: Schema.Attribute.Media<
+    imagen: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    description: Schema.Attribute.Text;
-    end_date: Schema.Attribute.Date;
-    final_result: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    interview_result: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    is_active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::announcement.announcement'
+      'api::modal-carrusel.modal-carrusel'
     > &
       Schema.Attribute.Private;
-    notice: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    process_name: Schema.Attribute.String & Schema.Attribute.Required;
+    nombre: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    start_date: Schema.Attribute.Date;
-    state: Schema.Attribute.Enumeration<
-      ['draft', 'published', 'in_progress', 'finished']
-    >;
-    terms: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    type: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::announcement-type.announcement-type'
-    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
 }
 
-export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
-  collectionName: 'globals';
+export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
+  collectionName: 'noticias';
   info: {
-    description: 'Define global settings';
-    displayName: 'Global';
-    pluralName: 'globals';
-    singularName: 'global';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    defaultSeo: Schema.Attribute.Component<'shared.seo', false>;
-    favicon: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::global.global'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    siteDescription: Schema.Attribute.Text & Schema.Attribute.Required;
-    siteName: Schema.Attribute.String & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiMemberMember extends Struct.CollectionTypeSchema {
-  collectionName: 'members';
-  info: {
-    displayName: 'member';
-    pluralName: 'members';
-    singularName: 'member';
+    displayName: 'noticias';
+    pluralName: 'noticias';
+    singularName: 'noticia';
   };
   options: {
     draftAndPublish: true;
@@ -543,19 +503,12 @@ export interface ApiMemberMember extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    first_name: Schema.Attribute.String & Schema.Attribute.Required;
-    is_active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    job_title: Schema.Attribute.String & Schema.Attribute.Required;
-    last_name: Schema.Attribute.String & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::member.member'
+      'api::noticia.noticia'
     > &
       Schema.Attribute.Private;
-    profile_picture: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -563,127 +516,12 @@ export interface ApiMemberMember extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiMunicipalityMunicipality
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'municipalities';
+export interface ApiRadioLinkRadioLink extends Struct.SingleTypeSchema {
+  collectionName: 'radio_links';
   info: {
-    displayName: 'municipality';
-    pluralName: 'municipalities';
-    singularName: 'municipality';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    address: Schema.Attribute.String;
-    business_hours: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    home_page_content: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
-    is_active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::municipality.municipality'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
-    phone: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    slogan: Schema.Attribute.Text;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiNewsPostNewsPost extends Struct.CollectionTypeSchema {
-  collectionName: 'news_posts';
-  info: {
-    displayName: 'news_post';
-    pluralName: 'news-posts';
-    singularName: 'news-post';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    author: Schema.Attribute.String;
-    content: Schema.Attribute.Text;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    image: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    is_active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    is_featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::news-post.news-post'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    summary: Schema.Attribute.Text;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiProjectProject extends Struct.CollectionTypeSchema {
-  collectionName: 'projects';
-  info: {
-    displayName: 'project';
-    pluralName: 'projects';
-    singularName: 'project';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    budget: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    end_date: Schema.Attribute.Date;
-    image: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    is_active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::project.project'
-    > &
-      Schema.Attribute.Private;
-    location: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    start_date: Schema.Attribute.Date;
-    state: Schema.Attribute.Enumeration<
-      ['planning', 'execution', 'paused', 'finished']
-    >;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiServiceService extends Struct.CollectionTypeSchema {
-  collectionName: 'services';
-  info: {
-    displayName: 'service';
-    pluralName: 'services';
-    singularName: 'service';
+    displayName: 'Radio Link';
+    pluralName: 'radio-links';
+    singularName: 'radio-link';
   };
   options: {
     draftAndPublish: true;
@@ -692,16 +530,15 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    is_active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    enlace_stream: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::service.service'
+      'api::radio-link.radio-link'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -709,13 +546,12 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiSocialNetworkSocialNetwork
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'social_networks';
+export interface ApiRedeRede extends Struct.SingleTypeSchema {
+  collectionName: 'redes';
   info: {
-    displayName: 'social-network';
-    pluralName: 'social-networks';
-    singularName: 'social-network';
+    displayName: 'Redes Sociales';
+    pluralName: 'redes';
+    singularName: 'rede';
   };
   options: {
     draftAndPublish: true;
@@ -724,20 +560,61 @@ export interface ApiSocialNetworkSocialNetwork
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    is_active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    Email: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    facebook: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    Instagram: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::rede.rede'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Telefono: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    Twitter: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    WhatsApp: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    YouTube: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+  };
+}
+
+export interface ApiServicioServicio extends Struct.CollectionTypeSchema {
+  collectionName: 'servicios';
+  info: {
+    displayName: 'Servicios';
+    pluralName: 'servicios';
+    singularName: 'servicio';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::social-network.social-network'
+      'api::servicio.servicio'
     > &
       Schema.Attribute.Private;
-    platform: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    url: Schema.Attribute.String;
   };
 }
 
@@ -1250,16 +1127,12 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::about.about': ApiAboutAbout;
-      'api::announcement-type.announcement-type': ApiAnnouncementTypeAnnouncementType;
-      'api::announcement.announcement': ApiAnnouncementAnnouncement;
-      'api::global.global': ApiGlobalGlobal;
-      'api::member.member': ApiMemberMember;
-      'api::municipality.municipality': ApiMunicipalityMunicipality;
-      'api::news-post.news-post': ApiNewsPostNewsPost;
-      'api::project.project': ApiProjectProject;
-      'api::service.service': ApiServiceService;
-      'api::social-network.social-network': ApiSocialNetworkSocialNetwork;
+      'api::hero-section.hero-section': ApiHeroSectionHeroSection;
+      'api::modal-carrusel.modal-carrusel': ApiModalCarruselModalCarrusel;
+      'api::noticia.noticia': ApiNoticiaNoticia;
+      'api::radio-link.radio-link': ApiRadioLinkRadioLink;
+      'api::rede.rede': ApiRedeRede;
+      'api::servicio.servicio': ApiServicioServicio;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

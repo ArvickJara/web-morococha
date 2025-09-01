@@ -43,7 +43,13 @@ npm install better-sqlite3 --save
 mkdir public\uploads
 ```
 
-#### d) Ejecutar el servidor de desarrollo
+#### e) Crear y configurar .env
+
+```bash
+Clonar .env.example y renombrar a .env realizaondo su configuración
+```
+
+#### e) Ejecutar el servidor de desarrollo
 
 ```bash
 npm run develop
