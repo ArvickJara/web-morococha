@@ -20,7 +20,7 @@ function resolveUrl(img: Media): string {
     return best.startsWith("http") ? best : `${BASE}${best}`;
 }
 
-const AUTOPLAY_MS = 4000; // 5000 para autoplay cada 5s; 0 desactiva
+const AUTOPLAY_MS = 10000; // 5000 para autoplay cada 5s; 0 desactiva
 
 // Ajusta un rectángulo (imagen) a un contenedor máx. sin deformar
 function fitRect(w: number, h: number, maxW: number, maxH: number) {

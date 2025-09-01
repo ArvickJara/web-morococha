@@ -11,6 +11,6 @@ export interface RedeData {
 }
 
 export const getRedeData = async (): Promise<RedeData> => {
-    const { data: responseData } = await api.get("/api/rede");
+    const { data: responseData } = await api.get("/rede");
     return responseData.data;
 };

@@ -8,7 +8,7 @@ const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
 
     const menuItems = [
-        { name: "Inicio", href: "/", external: false },
+        { name: "Gerencias", href: "/", external: false },
         { name: "Servicios", href: "#servicios", external: false },
         { name: "Noticias", href: "#noticias", external: false },
         { name: "San Francisco", href: "/pucara", external: false },
