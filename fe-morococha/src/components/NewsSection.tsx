@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowRight, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 import imagenNoticia from "@/assets/imagen_noticia.webp";
 
 const NewsSection = () => {
@@ -60,12 +61,12 @@ const NewsSection = () => {
                     <div className="lg:col-span-2">
                         <Card className="h-full group hover:shadow-hover transition-all duration-300 border-0 bg-gradient-card">
                             <div className="relative">
-                                <div className="h-64 bg-gradient-primary rounded-t-lg flex items-center justify-center">
-                                    <div className="h-64 bg-gradient-primary rounded-t-lg overflow-hidden">
+                                <div className="w-full bg-gradient-primary rounded-t-lg flex items-center justify-center">
+                                    <div className="w-full bg-gradient-primary rounded-t-lg overflow-hidden">
                                         <img
                                             src={imagenNoticia}
                                             alt="Imagen del evento"
-                                            className="w-full h-full object-cover"
+                                            className="w-full object-cover"
                                         />
                                     </div>
                                 </div>
@@ -93,10 +94,12 @@ const NewsSection = () => {
                                             {news[0].readTime} de lectura
                                         </div>
                                     </div>
-                                    <Button variant="ghost" size="sm" className="group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                                        Leer más
-                                        <ArrowRight className="ml-2 h-4 w-4" />
-                                    </Button>
+                                    <Link to={"/convocatorias"}>
+                                        <Button variant="ghost" size="sm" className="group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                                            Leer más
+                                            <ArrowRight className="ml-2 h-4 w-4" />
+                                        </Button>
+                                    </Link>
                                 </div>
                             </CardContent>
                         </Card>
@@ -105,29 +108,32 @@ const NewsSection = () => {
                     {/* Noticias secundarias */}
                     <div className="space-y-6">
                         {news.slice(1).map((item, index) => (
+
                             <Card key={index} className="group hover:shadow-card transition-all duration-300 border-0 bg-gradient-card">
-                                <CardHeader className="pb-3">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <Badge variant="outline">{item.category}</Badge>
-                                    </div>
-                                    <CardTitle className="text-lg font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                                        {item.title}
-                                    </CardTitle>
-                                    <CardDescription className="text-sm text-muted-foreground line-clamp-3">
-                                        {item.description}
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent className="pt-0">
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                            <Calendar className="h-3 w-3" />
-                                            {item.date}
+                                <button className="w-full text-left">
+                                    <CardHeader className="pb-3">
+                                        <div className="flex items-center justify-between mb-2">
+                                            <Badge variant="outline">{item.category}</Badge>
                                         </div>
-                                        <Button variant="ghost" size="sm" className="h-8 px-3 text-xs">
+                                        <CardTitle className="text-lg font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                                            {item.title}
+                                        </CardTitle>
+                                        <CardDescription className="text-sm text-muted-foreground line-clamp-3">
+                                            {item.description}
+                                        </CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="pt-0">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                                <Calendar className="h-3 w-3" />
+                                                {item.date}
+                                            </div>
+                                            {/* <Button variant="ghost" size="sm" className="h-8 px-3 text-xs">
                                             <ExternalLink className="h-3 w-3" />
-                                        </Button>
-                                    </div>
-                                </CardContent>
+                                        </Button> */}
+                                        </div>
+                                    </CardContent>
+                                </button>
                             </Card>
                         ))}
                     </div>

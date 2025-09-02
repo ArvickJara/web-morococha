@@ -4,8 +4,7 @@ import { getHeroSection } from '@/services/heroService';
 import type { HeroSectionType } from '@/services/heroService';
 import { useEffect, useState } from "react";
 import heroVideoFallback from "@/assets/morococha.mp4";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:133745";
+import { ASSETS_URL } from "@/services/api"; // Importa la URL correcta para los assets
 
 const HeroSection = () => {
     const [heroData, setHeroData] = useState<HeroSectionType | null>(null);
@@ -41,24 +40,52 @@ const HeroSection = () => {
         },
     ];
 
-    const videoSrc = heroData?.imgenVideo?.url
-        ? `${API_URL}${heroData.imgenVideo.url}`
-        : heroVideoFallback;
+    // CORRECCIÓN: Usa ASSETS_URL en lugar de API_URL para construir la ruta del video
+    const backgroundMedia = heroData?.imgenVideo;
+    const isVideo = backgroundMedia?.mime?.startsWith("video/");
+    const isImage = backgroundMedia?.mime?.startsWith("image/");
+
+    const mediaSrc = backgroundMedia?.url
+        ? (backgroundMedia.url.startsWith("http")
+            ? backgroundMedia.url
+            : ASSETS_URL + backgroundMedia.url)
+        : null;
 
     return (
         <section className="relative min-h-[90vh] flex items-center justify-center text-center overflow-hidden">
             {/* --- FONDO DE VIDEO Y OVERLAY --- */}
             <div className="absolute inset-0 z-0">
-                <video
-                    className="w-full h-full object-cover"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    poster="/path/to/poster-image.jpg"
-                >
-                    <source src={videoSrc} type="video/mp4" />
-                </video>
+                {mediaSrc && isVideo ? (
+                    <video
+                        key={mediaSrc}
+                        className="w-full h-full object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                    >
+                        <source src={mediaSrc} type={backgroundMedia?.mime} />
+                    </video>
+                ) : mediaSrc && isImage ? (
+                    <img
+                        src={mediaSrc}
+                        alt={heroData?.Titulo_principal || "Fondo de la municipalidad"}
+                        className="w-full h-full object-cover"
+                    />
+                ) : (
+                    // Fallback si no hay media desde la API (puedes cambiarlo por una imagen si prefieres)
+                    <video
+                        key={heroVideoFallback}
+                        className="w-full h-full object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                    >
+                        <source src={heroVideoFallback} type="video/mp4" />
+                    </video>
+                )}
+
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
             </div>

@@ -10,5 +10,31 @@
     "draftAndPublish": true
   },
   "pluginOptions": {},
-  "attributes": {}
+  "attributes": {
+    "titulo_noticia": {
+      "type": "string"
+    },
+    "imagen_noticia": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "fecha": {
+      "type": "date"
+    },
+    "tiempo_lectura_min": {
+      "type": "integer"
+    },
+    "categoria": {
+      "type": "string"
+    }
+  }
 }
