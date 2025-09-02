@@ -10,6 +10,8 @@ import Convocatorias from "./pages/Convocatorias";
 import ConvocatoriaDetalle from "@/pages/ConvocatoriaDetalle";
 import Proyectos from "./pages/Proyectos";
 import ProyectoDetalle from "@/pages/ProyectoDetalle";
+import ProyectoSanFrancisco from "./pages/ProyectosSanFrancisco";
+import ProyectoSanFranciscoDetalle from "./pages/ProyectoSanFranciscoDetalle";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +28,8 @@ const App = () => (
           <Route path="/convocatorias/:documentId" element={<ConvocatoriaDetalle />} />
           <Route path="/proyectos" element={<Proyectos />} />
           <Route path="/proyectos/:documentId" element={<ProyectoDetalle />} />
+          <Route path="/proyectos/san-francisco" element={<ProyectoSanFrancisco />} />
+          <Route path="/proyectos/san-francisco/:documentId" element={<ProyectoSanFranciscoDetalle />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
