@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import api, { ASSETS_URL } from "@/services/api";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 const estadoStyles: Record<string, string> = {
-  "en_planificacion": "bg-yellow-100 text-yellow-800 border border-yellow-300",
-  "en_ejecucion": "bg-blue-100 text-blue-800 border border-blue-300",
-  "concluido": "bg-green-100 text-green-800 border border-green-300",
+  en_planificacion: "bg-yellow-100 text-yellow-800 border border-yellow-300",
+  en_ejecucion: "bg-blue-100 text-blue-800 border border-blue-300",
+  concluido: "bg-green-100 text-green-800 border border-green-300",
 };
 
 const ProyectoDetalleSection = ({ documentId }: { documentId: string }) => {
@@ -71,6 +74,19 @@ const ProyectoDetalleSection = ({ documentId }: { documentId: string }) => {
         <ArrowLeft className="w-4 h-4 mr-2" /> Volver a proyectos
       </Link>
 
+      {/* Título */}
+      <h1 className="text-3xl font-bold mb-3">{nombre}</h1>
+
+      {/* Estado */}
+      {estado && (
+        <span
+          className={`px-3 py-1 rounded-full text-sm font-semibold inline-block mb-4 ${estadoStyles[estado] || "bg-gray-100 text-gray-800 border"
+            }`}
+        >
+          {estado.replace("_", " ")}
+        </span>
+      )}
+
       {/* Media - Carrusel */}
       {media && Array.isArray(media) && media.length > 0 && (
         <div className="relative mb-6">
@@ -123,9 +139,8 @@ const ProyectoDetalleSection = ({ documentId }: { documentId: string }) => {
               {media.map((_: any, index: number) => (
                 <div
                   key={index}
-                  className={`w-3 h-3 rounded-full cursor-pointer ${
-                    index === currentSlide ? "bg-blue-600" : "bg-gray-300"
-                  }`}
+                  className={`w-3 h-3 rounded-full cursor-pointer ${index === currentSlide ? "bg-blue-600" : "bg-gray-300"
+                    }`}
                   onClick={() => setCurrentSlide(index)}
                 />
               ))}
@@ -134,25 +149,15 @@ const ProyectoDetalleSection = ({ documentId }: { documentId: string }) => {
         </div>
       )}
 
-      {/* Título */}
-      <h1 className="text-3xl font-bold mb-3">{nombre}</h1>
-
-      {/* Estado */}
-      {estado && (
-        <span
-          className={`px-3 py-1 rounded-full text-sm font-semibold inline-block mb-4 ${
-            estadoStyles[estado] || "bg-gray-100 text-gray-800 border"
-          }`}
-        >
-          {estado.replace("_", " ")}
-        </span>
-      )}
-
-      {/* Descripción */}
+      {/* Descripción con Markdown */}
       {descripcion && (
-        <p className="text-gray-700 text-lg leading-relaxed mb-6">
-          {descripcion}
-        </p>
+        <div className="prose prose-lg max-w-none mb-6 break-words whitespace-pre-line">
+          <ReactMarkdown
+            children={descripcion}
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw]}
+          />
+        </div>
       )}
 
       {/* Documentos como burbujas */}
