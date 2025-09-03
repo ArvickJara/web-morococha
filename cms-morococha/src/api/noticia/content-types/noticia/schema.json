@@ -14,6 +14,12 @@
     "titulo_noticia": {
       "type": "string"
     },
+    "breve_descripcion": {
+      "type": "text"
+    },
+    "cuerpo_noticia": {
+      "type": "text"
+    },
     "imagen_noticia": {
       "type": "media",
       "multiple": true,
@@ -23,9 +29,6 @@
         "videos",
         "audios"
       ]
-    },
-    "descripcion": {
-      "type": "text"
     },
     "fecha": {
       "type": "date"

@@ -542,11 +542,12 @@ export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    breve_descripcion: Schema.Attribute.Text;
     categoria: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    descripcion: Schema.Attribute.Text;
+    cuerpo_noticia: Schema.Attribute.Text;
     fecha: Schema.Attribute.Date;
     imagen_noticia: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
