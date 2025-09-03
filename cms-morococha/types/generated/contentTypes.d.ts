@@ -568,6 +568,77 @@ export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiProyectoProyecto extends Struct.CollectionTypeSchema {
+  collectionName: 'proyectos';
+  info: {
+    displayName: 'Proyecto';
+    pluralName: 'proyectos';
+    singularName: 'proyecto';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.RichText;
+    documentos: Schema.Attribute.Media<'files' | 'images', true>;
+    estado: Schema.Attribute.Enumeration<
+      ['en_planificacion', 'en_ejecucion', 'concluido']
+    > &
+      Schema.Attribute.DefaultTo<'en_planificacion'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::proyecto.proyecto'
+    > &
+      Schema.Attribute.Private;
+    media: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
+    nombre: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiProyectosSanFranciscoProyectosSanFrancisco
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'proyectos_san_franciscos';
+  info: {
+    displayName: 'Proyectos San Francisco';
+    pluralName: 'proyectos-san-franciscos';
+    singularName: 'proyectos-san-francisco';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.RichText;
+    documentos: Schema.Attribute.Media<'images' | 'files', true>;
+    estado: Schema.Attribute.Enumeration<
+      ['en_planificacion', 'en_ejecucion', 'concluido']
+    > &
+      Schema.Attribute.DefaultTo<'en_planificacion'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::proyectos-san-francisco.proyectos-san-francisco'
+    > &
+      Schema.Attribute.Private;
+    media: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
+    nombre: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiRadioLinkRadioLink extends Struct.SingleTypeSchema {
   collectionName: 'radio_links';
   info: {
@@ -1217,6 +1288,8 @@ declare module '@strapi/strapi' {
       'api::hero-section.hero-section': ApiHeroSectionHeroSection;
       'api::modal-carrusel.modal-carrusel': ApiModalCarruselModalCarrusel;
       'api::noticia.noticia': ApiNoticiaNoticia;
+      'api::proyecto.proyecto': ApiProyectoProyecto;
+      'api::proyectos-san-francisco.proyectos-san-francisco': ApiProyectosSanFranciscoProyectosSanFrancisco;
       'api::radio-link.radio-link': ApiRadioLinkRadioLink;
       'api::rede.rede': ApiRedeRede;
       'api::servicio.servicio': ApiServicioServicio;

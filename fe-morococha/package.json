@@ -12,6 +12,7 @@
   "dependencies": {
     "@radix-ui/react-toast": "^1.2.14",
     "@radix-ui/react-tooltip": "^1.2.7",
+    "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.11",
     "@tanstack/react-query": "^5.83.0",
     "axios": "^1.11.0",
@@ -22,7 +23,10 @@
     "qs": "^6.14.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
     "react-router-dom": "^7.7.0",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.1",
     "sonner": "^2.0.6",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7"
