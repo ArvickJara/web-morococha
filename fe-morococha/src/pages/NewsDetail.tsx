@@ -4,6 +4,7 @@ import { getNoticiaById, imageUrl, type Noticia } from "@/services/noticasServic
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import Footer from "@/components/Footer";
 
 export default function NewsDetail() {
     const { id } = useParams<{ id: string }>();
@@ -187,6 +188,7 @@ export default function NewsDetail() {
                     />
                 </div>
             </article>
+            <Footer />
         </div>
     );
 }
