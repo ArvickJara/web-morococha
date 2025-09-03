@@ -42,7 +42,7 @@ export default function NewsDetail() {
                         <div className="w-16 h-16 bg-destructive/10 rounded-full flex items-center justify-center mx-auto mb-4">
                             <ArrowLeft className="h-8 w-8 text-destructive" />
                         </div>
-                        <h2 className="text-xl font-bold text-foreground mb-3">Oops! Algo salió mal</h2>
+                        <h2 className="text-xl font-bold text-black mb-3">Oops! Algo salió mal</h2>
                         <p className="text-destructive font-medium mb-6">{error}</p>
                         <Link to="/#noticias">
                             <Button variant="default" className="w-full shadow-lg hover:shadow-xl transition-all duration-300">
@@ -139,7 +139,7 @@ export default function NewsDetail() {
                             <div className="max-w-4xl">
                                 <div className="flex items-center gap-3 mb-4">
                                     {noticia.categoria && (
-                                        <Badge className="pointer-events-auto bg-primary/90 text-primary-foreground px-4 py-1.5 text-sm font-semibold backdrop-blur-sm border border-white/20">
+                                        <Badge className="pointer-events-auto bg-primary/90 text-primary-black px-4 py-1.5 text-sm font-semibold backdrop-blur-sm border border-white/20">
                                             {noticia.categoria}
                                         </Badge>
                                     )}
@@ -170,7 +170,7 @@ export default function NewsDetail() {
                 {noticia.breve_descripcion && (
                     <div className="mb-12">
                         <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border/50 shadow-lg">
-                            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed font-light italic break-words overflow-hidden"
+                            <p className="text-xl md:text-2xl text-muted-black leading-relaxed font-light italic break-words overflow-hidden"
                                 style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
                                 "{noticia.breve_descripcion}"
                             </p>
@@ -180,31 +180,11 @@ export default function NewsDetail() {
 
                 {/* Cuerpo mejorado */}
                 <div className="bg-card/30 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-border/50 shadow-xl">
-                    {noticia.cuerpo_noticia ? (
-                        <div
-                            className="prose prose-xl prose-neutral dark:prose-invert max-w-none 
-             prose-headings:font-bold prose-headings:text-foreground prose-headings:tracking-tight
-             prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:text-lg
-             prose-img:rounded-2xl prose-img:shadow-xl prose-img:border prose-img:border-border/50
-             prose-a:text-primary prose-a:font-semibold hover:prose-a:text-primary/80 prose-a:no-underline hover:prose-a:underline
-             prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-muted/50 prose-blockquote:rounded-r-lg prose-blockquote:p-4
-             prose-code:bg-muted prose-code:rounded prose-code:px-2 prose-code:py-1
-             prose-pre:bg-muted prose-pre:rounded-xl prose-pre:border prose-pre:border-border
-             prose-li:text-muted-foreground prose-li:text-lg
-             prose-strong:text-foreground prose-strong:font-bold
-             overflow-hidden break-words word-wrap"
-                            style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
-                            dangerouslySetInnerHTML={{ __html: noticia.cuerpo_noticia }}
-                        />
+                    <div
 
-                    ) : (
-                        <div className="text-center py-16">
-                            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Clock className="h-8 w-8 text-muted-foreground" />
-                            </div>
-                            <p className="text-muted-foreground text-lg">No hay contenido disponible.</p>
-                        </div>
-                    )}
+                        style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
+                        dangerouslySetInnerHTML={{ __html: noticia.cuerpo_noticia ?? "" }}
+                    />
                 </div>
             </article>
         </div>
