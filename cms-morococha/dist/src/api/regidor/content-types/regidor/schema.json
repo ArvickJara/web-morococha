@@ -1,0 +1,29 @@
+{
+    "kind": "collectionType",
+    "collectionName": "regidors",
+    "info": {
+        "singularName": "regidor",
+        "pluralName": "regidors",
+        "displayName": "regidor"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "foto": {
+            "type": "media",
+            "multiple": true,
+            "allowedTypes": [
+                "images",
+                "files"
+            ]
+        },
+        "nombre": {
+            "type": "string"
+        },
+        "cargo": {
+            "type": "string"
+        }
+    }
+}

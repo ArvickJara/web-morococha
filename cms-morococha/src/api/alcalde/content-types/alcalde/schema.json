@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "alcaldes",
+  "info": {
+    "singularName": "alcalde",
+    "pluralName": "alcaldes",
+    "displayName": "alcalde"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "foto": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "biografia": {
+      "type": "text"
+    }
+  }
+}

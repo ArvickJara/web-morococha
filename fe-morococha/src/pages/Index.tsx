@@ -5,6 +5,7 @@ import NewsSection from "@/components/NewsSection";
 import Footer from "@/components/Footer";
 import RadioPlayer from "@/components/RadioPlayer";
 import WelcomeCarouselModal from "@/components/WelcomeCarouselModal";
+import QuickLinks from "@/components/QuickLinks";
 
 
 
@@ -14,6 +15,7 @@ const Index = () => {
             <WelcomeCarouselModal />
             <Header />
             <HeroSection />
+            <QuickLinks />
             <ServicesSection />
             <NewsSection />
             <Footer />

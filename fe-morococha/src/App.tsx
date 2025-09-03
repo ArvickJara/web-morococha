@@ -14,6 +14,10 @@ import Proyectos from "./pages/Proyectos";
 import ProyectoDetalle from "@/pages/ProyectoDetalle";
 import ProyectoSanFrancisco from "./pages/ProyectosSanFrancisco";
 import ProyectoSanFranciscoDetalle from "./pages/ProyectoSanFranciscoDetalle";
+import Alcalde from "./pages/Alcalde";
+import Regidores from "./pages/Regidores";
+import UbicacionPage from "./pages/Ubicacion";
+import OrganigramaPage from "./pages/Organigrama";
 
 const queryClient = new QueryClient();
 
@@ -30,9 +34,13 @@ const App = () => (
           <Route path="/convocatorias/:documentId" element={<ConvocatoriaDetalle />} />
           <Route path="/noticias/:id" element={<NewsDetail />} />
           <Route path="/proyectos" element={<Proyectos />} />
+          <Route path="/alcalde" element={<Alcalde />} />
           <Route path="/proyectos/:documentId" element={<ProyectoDetalle />} />
           <Route path="/proyectos/san-francisco" element={<ProyectoSanFrancisco />} />
           <Route path="/proyectos/san-francisco/:documentId" element={<ProyectoSanFranciscoDetalle />} />
+          <Route path="/regidores" element={<Regidores />} />
+          <Route path="/ubicacion" element={<UbicacionPage />} />
+          <Route path="/organigrama" element={<OrganigramaPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

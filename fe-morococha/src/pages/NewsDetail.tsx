@@ -168,7 +168,7 @@ export default function NewsDetail() {
                 </section>
 
                 {/* Lead / resumen mejorado */}
-                {noticia.breve_descripcion && (
+                {/* {noticia.breve_descripcion && (
                     <div className="mb-12">
                         <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border/50 shadow-lg">
                             <p className="text-xl md:text-2xl text-muted-black leading-relaxed font-light italic break-words overflow-hidden"
@@ -177,7 +177,7 @@ export default function NewsDetail() {
                             </p>
                         </div>
                     </div>
-                )}
+                )} */}
 
                 {/* Cuerpo mejorado */}
                 <div className="bg-card/30 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-border/50 shadow-xl">

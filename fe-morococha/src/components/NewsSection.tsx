@@ -45,7 +45,7 @@ const NewsSection = () => {
     if (!featured) return null;
 
     return (
-        <section id="noticias" className="py-20 bg-background">
+        <section id="noticias" className="py-20 bg-muted/30">
             <div className="container mx-auto px-4">
                 {/* Encabezado */}
                 <div className="text-center mb-16">
