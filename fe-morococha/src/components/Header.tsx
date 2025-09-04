@@ -2,21 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import EscudoImage from "@/assets/logo_transparent.png";
+import api from "@/services/api";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [isGerenciasOpen, setIsGerenciasOpen] = useState(false);
+    const [gerencias, setGerencias] = useState<Array<{ nombre: string, documentId: string }>>([]);
     const gerenciasRef = useRef<HTMLDivElement>(null);
-
-    const gerencias = [
-        { name: "Subgerencia de Asesoría Jurídica", href: "/gerencias/asesoria-juridica" },
-        { name: "Subgerencia de Planeamiento y Presupuesto", href: "/gerencias/planeamiento-presupuesto" },
-        { name: "Subgerencia de Administración y Rentas", href: "/gerencias/administracion-rentas" },
-        { name: "Subgerencia de Desarrollo Económico y Seguridad Ciudadana", href: "/gerencias/desarrollo-economico" },
-        { name: "Subgerencia de Servicios Públicos y Sociales", href: "/gerencias/servicios-publicos" },
-        { name: "Subgerencia de Infraestructura y Desarrollo Territorial", href: "/gerencias/infraestructura" },
-    ];
 
     const menuItems = [
         { name: "San Francisco", href: "/pucara", external: false },
@@ -31,6 +24,19 @@ const Header = () => {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const fetchGerencias = async () => {
+            try {
+                const response = await api.get('/subgerencias');
+                setGerencias(response.data.data);
+            } catch (error) {
+                console.error('Error al cargar gerencias:', error);
+                setGerencias([]);
+            }
+        };
+        fetchGerencias();
     }, []);
 
     // Cerrar dropdown al hacer clic fuera
@@ -84,16 +90,22 @@ const Header = () => {
                             {/* Dropdown menu */}
                             {isGerenciasOpen && (
                                 <div className="absolute top-full left-0 mt-2 w-80 bg-background border border-border rounded-lg shadow-lg z-50 py-2">
-                                    {gerencias.map((gerencia) => (
-                                        <a
-                                            key={gerencia.name}
-                                            href={gerencia.href}
-                                            className="block px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted transition-colors duration-200"
-                                            onClick={() => setIsGerenciasOpen(false)}
-                                        >
-                                            {gerencia.name}
-                                        </a>
-                                    ))}
+                                    {gerencias.length > 0 ? (
+                                        gerencias.map((gerencia) => (
+                                            <a
+                                                key={gerencia.documentId}
+                                                href={`/gerencias/${gerencia.documentId}`}
+                                                className="block px-4 py-3 text-sm text-foreground hover:text-primary hover:bg-muted transition-colors duration-200"
+                                                onClick={() => setIsGerenciasOpen(false)}
+                                            >
+                                                {gerencia.nombre}
+                                            </a>
+                                        ))
+                                    ) : (
+                                        <div className="px-4 py-3 text-sm text-muted-foreground">
+                                            Gerencias en mantenimiento
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
@@ -148,19 +160,25 @@ const Header = () => {
 
                                 {isGerenciasOpen && (
                                     <div className="mt-2 ml-4 space-y-1">
-                                        {gerencias.map((gerencia) => (
-                                            <a
-                                                key={gerencia.name}
-                                                href={gerencia.href}
-                                                className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-muted rounded-md transition-colors duration-200"
-                                                onClick={() => {
-                                                    setIsMenuOpen(false);
-                                                    setIsGerenciasOpen(false);
-                                                }}
-                                            >
-                                                {gerencia.name}
-                                            </a>
-                                        ))}
+                                        {gerencias.length > 0 ? (
+                                            gerencias.map((gerencia) => (
+                                                <a
+                                                    key={gerencia.documentId}
+                                                    href={`/gerencias/${gerencia.documentId}`}
+                                                    className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-muted rounded-md transition-colors duration-200"
+                                                    onClick={() => {
+                                                        setIsMenuOpen(false);
+                                                        setIsGerenciasOpen(false);
+                                                    }}
+                                                >
+                                                    {gerencia.nombre}
+                                                </a>
+                                            ))
+                                        ) : (
+                                            <div className="px-4 py-2 text-sm text-muted-foreground">
+                                                Gerencias en mantenimiento
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </div>
