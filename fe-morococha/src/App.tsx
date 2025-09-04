@@ -18,6 +18,8 @@ import Alcalde from "./pages/Alcalde";
 import Regidores from "./pages/Regidores";
 import UbicacionPage from "./pages/Ubicacion";
 import OrganigramaPage from "./pages/Organigrama";
+import SerenazgoPage from "./pages/Serenazgo";
+import ComerciantesPage from "./pages/Comerciantes";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +43,8 @@ const App = () => (
           <Route path="/regidores" element={<Regidores />} />
           <Route path="/ubicacion" element={<UbicacionPage />} />
           <Route path="/organigrama" element={<OrganigramaPage />} />
+          <Route path="/serenazgo" element={<SerenazgoPage />} />
+          <Route path="/comerciantes" element={<ComerciantesPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
