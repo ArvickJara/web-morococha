@@ -153,7 +153,7 @@ const ProyectosSanFranciscoSection = () => {
                 </div>
 
                 <Link
-                  to={`/pucara/proyectos/${item.documentId}`}
+                  to={`/proyectos/san-francisco/${item.documentId}`}
                   className="px-3 py-1.5 bg-primary text-white text-xs rounded-lg shadow hover:bg-primary/80 transition"
                 >
                   Ver
