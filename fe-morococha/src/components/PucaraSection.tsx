@@ -1,4 +1,6 @@
 import { MapPin, Users, GraduationCap, Coins, Heart, Mountain, BookOpen, ArrowRight, Folder } from "lucide-react";
+import { useEffect, useState } from "react";
+import api from "@/services/api";
 
 // TODO: Reemplaza estas rutas con imágenes reales de Pucará
 import pucaraVistaGeneral from "@/assets/pucara-morococha.jpg";
@@ -7,11 +9,27 @@ import ganaderiaPucara from "@/assets/ganaderia-pucara.jpg";
 import escuelaPucara from "@/assets/escuela-pucara.jpg";
 
 const PucaraSection = () => {
+    const [totalProyectos, setTotalProyectos] = useState<number>(0);
+
+    useEffect(() => {
+        const fetchTotalProyectos = async () => {
+            try {
+                const response = await api.get('/proyectos-san-franciscos?pagination[pageSize]=1');
+                const total = response.data?.meta?.pagination?.total || 0;
+                setTotalProyectos(total);
+            } catch (error) {
+                console.error("Error al obtener el total de proyectos:", error);
+            }
+        };
+
+        fetchTotalProyectos();
+    }, []);
+
     const stats = [
         { 
             icon: Folder, // Cambiamos el icono
             label: "Proyectos", 
-            value: "8+", 
+            value: `${totalProyectos}+`, 
             link: "/pucara/proyectos", // Agregamos el enlace
             description: "Ver todos los proyectos" // Texto adicional
         },
