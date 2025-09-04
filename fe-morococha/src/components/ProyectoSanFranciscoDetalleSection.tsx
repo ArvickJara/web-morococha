@@ -68,7 +68,7 @@ const ProyectoDetalleSection = ({ documentId }: { documentId: string }) => {
     <div className="max-w-5xl mx-auto p-6">
       {/* Botón volver */}
       <Link
-        to="/proyectos/san-francisco"
+        to="/pucara/proyectos"
         className="inline-flex items-center mb-6 text-blue-600 hover:underline"
       >
         <ArrowLeft className="w-4 h-4 mr-2" /> Volver a proyectos

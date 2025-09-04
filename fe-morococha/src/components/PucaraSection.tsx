@@ -1,4 +1,4 @@
-import { MapPin, Users, GraduationCap, Coins, Heart, Mountain, BookOpen } from "lucide-react";
+import { MapPin, Users, GraduationCap, Coins, Heart, Mountain, BookOpen, ArrowRight, Folder } from "lucide-react";
 
 // TODO: Reemplaza estas rutas con imágenes reales de Pucará
 import pucaraVistaGeneral from "@/assets/pucara-morococha.jpg";
@@ -8,7 +8,13 @@ import escuelaPucara from "@/assets/escuela-pucara.jpg";
 
 const PucaraSection = () => {
     const stats = [
-        { icon: MapPin, label: "Altitud", value: "4,259 msnm" },
+        { 
+            icon: Folder, // Cambiamos el icono
+            label: "Proyectos", 
+            value: "8+", 
+            link: "/pucara/proyectos", // Agregamos el enlace
+            description: "Ver todos los proyectos" // Texto adicional
+        },
         { icon: Users, label: "Habitantes", value: "+ 300" },
         { icon: Mountain, label: "Ubicación", value: "Km 147, Carr. Central" },
     ];
@@ -66,10 +72,22 @@ const PucaraSection = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 max-w-4xl mx-auto">
                     {stats.map((stat, index) => (
-                        <div key={index} className="bg-card border border-border/50 rounded-xl p-6 text-center flex flex-col items-center justify-center hover:bg-card/80 transition-colors">
+                        <div 
+                            key={index} 
+                            className="bg-card border border-border/50 rounded-xl p-6 text-center flex flex-col items-center justify-center hover:bg-card/80 transition-colors"
+                        >
                             <stat.icon className="h-10 w-10 text-primary mb-3" />
                             <p className="text-2xl font-bold text-foreground">{stat.value}</p>
                             <p className="text-sm text-muted-foreground">{stat.label}</p>
+                            {stat.link && (
+                                <a 
+                                    href={stat.link} 
+                                    className="text-muted-foreground text-sm mt-3 flex items-center gap-1 hover:underline"
+                                >
+                                    {stat.description}
+                                    <ArrowRight className="h-4 w-4" />
+                                </a>
+                            )}
                         </div>
                     ))}
                 </div>
