@@ -1,0 +1,40 @@
+{
+    "kind": "collectionType",
+    "collectionName": "subgerencias",
+    "info": {
+        "singularName": "subgerencia",
+        "pluralName": "subgerencias",
+        "displayName": "Subgerencia"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "nombre": {
+            "type": "string",
+            "required": true
+        },
+        "descripcion": {
+            "type": "text"
+        },
+        "actividades_subgerencias": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::actividades-subgerencia.actividades-subgerencia",
+            "mappedBy": "subgerencia"
+        },
+        "servicios_subgerencias": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::servicios-subgerencia.servicios-subgerencia",
+            "mappedBy": "subgerencia"
+        },
+        "obras_subgerencias": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::obras-subgerencia.obras-subgerencia",
+            "mappedBy": "subgerencia"
+        }
+    }
+}

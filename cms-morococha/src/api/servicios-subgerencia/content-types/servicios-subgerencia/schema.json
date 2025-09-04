@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "servicios_subgerencias",
+  "info": {
+    "singularName": "servicios-subgerencia",
+    "pluralName": "servicios-subgerencias",
+    "displayName": "Servicios Subgerencia"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "subgerencia": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subgerencia.subgerencia",
+      "inversedBy": "servicios_subgerencias"
+    },
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text"
+    }
+  }
+}

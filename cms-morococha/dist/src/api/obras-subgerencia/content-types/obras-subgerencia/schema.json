@@ -1,0 +1,44 @@
+{
+    "kind": "collectionType",
+    "collectionName": "obras_subgerencias",
+    "info": {
+        "singularName": "obras-subgerencia",
+        "pluralName": "obras-subgerencias",
+        "displayName": "Obras Subgerencia"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "subgerencia": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::subgerencia.subgerencia",
+            "inversedBy": "obras_subgerencias"
+        },
+        "nombre": {
+            "type": "string"
+        },
+        "descripcion": {
+            "type": "richtext"
+        },
+        "media": {
+            "type": "media",
+            "multiple": true,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos"
+            ]
+        },
+        "estado": {
+            "type": "enumeration",
+            "enum": [
+                "en_planificacion",
+                "en_ejecucion",
+                "concluido"
+            ]
+        }
+    }
+}

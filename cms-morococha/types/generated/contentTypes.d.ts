@@ -373,6 +373,39 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiActividadesSubgerenciaActividadesSubgerencia
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'actividades_subgerencias';
+  info: {
+    displayName: 'Actividades Subgerencia';
+    pluralName: 'actividades-subgerencias';
+    singularName: 'actividades-subgerencia';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::actividades-subgerencia.actividades-subgerencia'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    subgerencia: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::subgerencia.subgerencia'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiAlcaldeAlcalde extends Struct.SingleTypeSchema {
   collectionName: 'alcaldes';
   info: {
@@ -592,6 +625,44 @@ export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     tiempo_lectura_min: Schema.Attribute.Integer;
     titulo_noticia: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiObrasSubgerenciaObrasSubgerencia
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'obras_subgerencias';
+  info: {
+    displayName: 'Obras Subgerencia';
+    pluralName: 'obras-subgerencias';
+    singularName: 'obras-subgerencia';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.RichText;
+    estado: Schema.Attribute.Enumeration<
+      ['en_planificacion', 'en_ejecucion', 'concluido']
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::obras-subgerencia.obras-subgerencia'
+    > &
+      Schema.Attribute.Private;
+    media: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    subgerencia: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::subgerencia.subgerencia'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -823,6 +894,81 @@ export interface ApiServicioServicio extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiServiciosSubgerenciaServiciosSubgerencia
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'servicios_subgerencias';
+  info: {
+    displayName: 'Servicios Subgerencia';
+    pluralName: 'servicios-subgerencias';
+    singularName: 'servicios-subgerencia';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::servicios-subgerencia.servicios-subgerencia'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    subgerencia: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::subgerencia.subgerencia'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSubgerenciaSubgerencia extends Struct.CollectionTypeSchema {
+  collectionName: 'subgerencias';
+  info: {
+    displayName: 'Subgerencia';
+    pluralName: 'subgerencias';
+    singularName: 'subgerencia';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    actividades_subgerencias: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::actividades-subgerencia.actividades-subgerencia'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subgerencia.subgerencia'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String & Schema.Attribute.Required;
+    obras_subgerencias: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::obras-subgerencia.obras-subgerencia'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    servicios_subgerencias: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::servicios-subgerencia.servicios-subgerencia'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1372,11 +1518,13 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::actividades-subgerencia.actividades-subgerencia': ApiActividadesSubgerenciaActividadesSubgerencia;
       'api::alcalde.alcalde': ApiAlcaldeAlcalde;
       'api::convocatoria.convocatoria': ApiConvocatoriaConvocatoria;
       'api::hero-section.hero-section': ApiHeroSectionHeroSection;
       'api::modal-carrusel.modal-carrusel': ApiModalCarruselModalCarrusel;
       'api::noticia.noticia': ApiNoticiaNoticia;
+      'api::obras-subgerencia.obras-subgerencia': ApiObrasSubgerenciaObrasSubgerencia;
       'api::organigrama.organigrama': ApiOrganigramaOrganigrama;
       'api::proyecto.proyecto': ApiProyectoProyecto;
       'api::proyectos-san-francisco.proyectos-san-francisco': ApiProyectosSanFranciscoProyectosSanFrancisco;
@@ -1384,6 +1532,8 @@ declare module '@strapi/strapi' {
       'api::rede.rede': ApiRedeRede;
       'api::regidor.regidor': ApiRegidorRegidor;
       'api::servicio.servicio': ApiServicioServicio;
+      'api::servicios-subgerencia.servicios-subgerencia': ApiServiciosSubgerenciaServiciosSubgerencia;
+      'api::subgerencia.subgerencia': ApiSubgerenciaSubgerencia;
       'api::tipo-convocatoria.tipo-convocatoria': ApiTipoConvocatoriaTipoConvocatoria;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

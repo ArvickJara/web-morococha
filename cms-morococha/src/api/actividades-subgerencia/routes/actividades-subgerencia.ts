@@ -1,0 +1,7 @@
+/**
+ * actividades-subgerencia router
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreRouter('api::actividades-subgerencia.actividades-subgerencia');
