@@ -373,6 +373,36 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAlcaldeAlcalde extends Struct.SingleTypeSchema {
+  collectionName: 'alcaldes';
+  info: {
+    displayName: 'alcalde';
+    pluralName: 'alcaldes';
+    singularName: 'alcalde';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    biografia: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    foto: Schema.Attribute.Media<'images' | 'files', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::alcalde.alcalde'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiConvocatoriaConvocatoria
   extends Struct.CollectionTypeSchema {
   collectionName: 'convocatorias';
@@ -542,11 +572,12 @@ export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    breve_descripcion: Schema.Attribute.Text;
     categoria: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    descripcion: Schema.Attribute.Text;
+    cuerpo_noticia: Schema.Attribute.Text;
     fecha: Schema.Attribute.Date;
     imagen_noticia: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
@@ -561,6 +592,34 @@ export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     tiempo_lectura_min: Schema.Attribute.Integer;
     titulo_noticia: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiOrganigramaOrganigrama extends Struct.CollectionTypeSchema {
+  collectionName: 'organigramas';
+  info: {
+    displayName: 'organigrama';
+    pluralName: 'organigramas';
+    singularName: 'organigrama';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::organigrama.organigrama'
+    > &
+      Schema.Attribute.Private;
+    organigrama: Schema.Attribute.Media<'images' | 'files'>;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -710,6 +769,36 @@ export interface ApiRedeRede extends Struct.SingleTypeSchema {
     YouTube: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+  };
+}
+
+export interface ApiRegidorRegidor extends Struct.CollectionTypeSchema {
+  collectionName: 'regidors';
+  info: {
+    displayName: 'regidor';
+    pluralName: 'regidors';
+    singularName: 'regidor';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cargo: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    foto: Schema.Attribute.Media<'images' | 'files', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::regidor.regidor'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1283,14 +1372,17 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::alcalde.alcalde': ApiAlcaldeAlcalde;
       'api::convocatoria.convocatoria': ApiConvocatoriaConvocatoria;
       'api::hero-section.hero-section': ApiHeroSectionHeroSection;
       'api::modal-carrusel.modal-carrusel': ApiModalCarruselModalCarrusel;
       'api::noticia.noticia': ApiNoticiaNoticia;
+      'api::organigrama.organigrama': ApiOrganigramaOrganigrama;
       'api::proyecto.proyecto': ApiProyectoProyecto;
       'api::proyectos-san-francisco.proyectos-san-francisco': ApiProyectosSanFranciscoProyectosSanFrancisco;
       'api::radio-link.radio-link': ApiRadioLinkRadioLink;
       'api::rede.rede': ApiRedeRede;
+      'api::regidor.regidor': ApiRegidorRegidor;
       'api::servicio.servicio': ApiServicioServicio;
       'api::tipo-convocatoria.tipo-convocatoria': ApiTipoConvocatoriaTipoConvocatoria;
       'plugin::content-releases.release': PluginContentReleasesRelease;

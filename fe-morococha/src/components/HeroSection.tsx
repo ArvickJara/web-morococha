@@ -137,13 +137,14 @@ const HeroSection = () => {
                     {stats.map((stat, index) => (
                         <div
                             key={index}
-                            className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 
-                                       transition-all duration-300 ease-in-out group
-                                       hover:bg-white/20 hover:border-white/40 hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/10"
+                            className={`bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 
+                       transition-all duration-300 ease-in-out group
+                       hover:bg-white/20 hover:border-white/40 hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/10
+                       flex flex-col ${stat.label === "Proyectos" ? "justify-between" : "justify-start"}`}
                         >
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center
-                                            transition-colors duration-300">
+                            transition-colors duration-300">
                                     <stat.icon className="h-6 w-6 text-white transition-transform duration-300 group-hover:scale-110" />
                                 </div>
                                 <div>
@@ -151,6 +152,21 @@ const HeroSection = () => {
                                     <p className="text-white/70 text-sm">{stat.label}</p>
                                 </div>
                             </div>
+
+                            {/* Contenido adicional solo para proyectos */}
+                            {stat.label === "Proyectos" && (
+                                <div className="mt-3">
+                                    <div className="pt-3 border-t border-white/20">
+                                        <a
+                                            href="/proyectos"
+                                            className="text-white/80 text-sm hover:text-white transition-colors duration-200 flex items-center gap-2 group/link"
+                                        >
+                                            Ver todos los proyectos
+                                            <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover/link:translate-x-1" />
+                                        </a>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>

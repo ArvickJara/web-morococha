@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "organigramas",
+  "info": {
+    "singularName": "organigrama",
+    "pluralName": "organigramas",
+    "displayName": "organigrama"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "organigrama": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    }
+  }
+}

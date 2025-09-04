@@ -5,20 +5,22 @@ import NewsSection from "@/components/NewsSection";
 import Footer from "@/components/Footer";
 import RadioPlayer from "@/components/RadioPlayer";
 import WelcomeCarouselModal from "@/components/WelcomeCarouselModal";
-
-
+import QuickLinks from "@/components/QuickLinks";
 
 const Index = () => {
     return (
-        <div className="min-h-screen bg-background">
+        <>
             <WelcomeCarouselModal />
             <Header />
-            <HeroSection />
-            <ServicesSection />
-            <NewsSection />
-            <Footer />
-            <RadioPlayer />
-        </div>
+            <div className="min-h-screen bg-background overflow-x-hidden">
+                <HeroSection />
+                <QuickLinks />
+                <ServicesSection />
+                <NewsSection />
+                <Footer />
+                <RadioPlayer />
+            </div>
+        </>
     );
 };
 
