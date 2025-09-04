@@ -436,6 +436,43 @@ export interface ApiAlcaldeAlcalde extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiComercioComercio extends Struct.CollectionTypeSchema {
+  collectionName: 'comercios';
+  info: {
+    displayName: 'comercios';
+    pluralName: 'comercios';
+    singularName: 'comercio';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    categoria: Schema.Attribute.String;
+    color: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.Text;
+    direccion: Schema.Attribute.String;
+    especialidades: Schema.Attribute.JSON;
+    estado: Schema.Attribute.Boolean;
+    horario: Schema.Attribute.String;
+    icon: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::comercio.comercio'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    telefono: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiConvocatoriaConvocatoria
   extends Struct.CollectionTypeSchema {
   collectionName: 'convocatorias';
@@ -1520,6 +1557,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::actividades-subgerencia.actividades-subgerencia': ApiActividadesSubgerenciaActividadesSubgerencia;
       'api::alcalde.alcalde': ApiAlcaldeAlcalde;
+      'api::comercio.comercio': ApiComercioComercio;
       'api::convocatoria.convocatoria': ApiConvocatoriaConvocatoria;
       'api::hero-section.hero-section': ApiHeroSectionHeroSection;
       'api::modal-carrusel.modal-carrusel': ApiModalCarruselModalCarrusel;

@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comercios",
+  "info": {
+    "singularName": "comercio",
+    "pluralName": "comercios",
+    "displayName": "comercios"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "categoria": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "direccion": {
+      "type": "string"
+    },
+    "telefono": {
+      "type": "string"
+    },
+    "horario": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "especialidades": {
+      "type": "json"
+    },
+    "estado": {
+      "type": "boolean"
+    }
+  }
+}

@@ -11,6 +11,7 @@ import {
     ShoppingCart,
 } from "lucide-react";
 import { getRedeData } from "@/services/redeService";
+import { Link } from "react-router-dom";
 
 const WhatsAppIcon = () => (
     <svg className="mr-2 h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
@@ -61,7 +62,8 @@ const ServicesSection = () => {
             title: "Serenazgo Morococha",
             description: "Servicio de seguridad ciudadana y vigilancia municipal para garantizar el orden y la tranquilidad.",
             features: ["Patrullaje", "Emergencias", "Apoyo Policial"],
-            color: "bg-secondary"
+            color: "bg-secondary",
+            link: "/serenazgo"
         },
         {
             icon: FileUser,
@@ -75,12 +77,13 @@ const ServicesSection = () => {
             title: "Comercialización",
             description: "Promoción y apoyo al desarrollo comercial local, ferias y mercados para emprendedores.",
             features: ["Ferias Locales", "Mercados", "Emprendimiento"],
-            color: "bg-primary"
+            color: "bg-primary",
+            link: "/comerciantes"
         }
     ];
 
     return (
-        <section id="servicios" className="py-20 bg-muted/30">
+        <section id="servicios" className=" bg-muted/30">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -93,31 +96,49 @@ const ServicesSection = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                    {services.map((service, index) => (
-                        <Card key={index} className="group hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 border-0 bg-card hover:bg-card/95 hover:scale-[1.02]">
-                            <CardHeader className="pb-4">
-                                <div className={`w-12 h-12 ${service.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                                    <service.icon className="h-6 w-6 text-white" />
-                                </div>
-                                <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                                    {service.title}
-                                </CardTitle>
-                                <CardDescription className="text-muted-foreground">
-                                    {service.description}
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <ul className="space-y-2 mb-6">
-                                    {service.features.map((feature, featureIndex) => (
-                                        <li key={featureIndex} className="flex items-center text-sm text-muted-foreground">
-                                            <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3"></div>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </CardContent>
-                        </Card>
-                    ))}
+                    {services.map((service, index) => {
+                        const CardComponent = ({ children }: { children: React.ReactNode }) =>
+                            service.link ? (
+                                <Link to={service.link} className="block">
+                                    {children}
+                                </Link>
+                            ) : (
+                                <div>{children}</div>
+                            );
+
+                        return (
+                            <CardComponent key={index}>
+                                <Card className={`group hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 border-0 bg-card hover:bg-card/95 hover:scale-[1.02] ${service.link ? 'cursor-pointer' : ''}`}>
+                                    <CardHeader className="pb-4">
+                                        <div className={`w-12 h-12 ${service.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                                            <service.icon className="h-6 w-6 text-white" />
+                                        </div>
+                                        <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                                            {service.title}
+                                        </CardTitle>
+                                        <CardDescription className="text-muted-foreground">
+                                            {service.description}
+                                        </CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <ul className="space-y-2 mb-6">
+                                            {service.features.map((feature, featureIndex) => (
+                                                <li key={featureIndex} className="flex items-center text-sm text-muted-foreground">
+                                                    <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3"></div>
+                                                    {feature}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        {service.link && (
+                                            <div className="text-xs text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                Click para ver más detalles →
+                                            </div>
+                                        )}
+                                    </CardContent>
+                                </Card>
+                            </CardComponent>
+                        );
+                    })}
                 </div>
 
                 {/* Sección de contacto rápido */}
