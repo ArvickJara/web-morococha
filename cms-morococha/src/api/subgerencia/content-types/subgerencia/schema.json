@@ -35,6 +35,12 @@
       "relation": "oneToMany",
       "target": "api::obras-subgerencia.obras-subgerencia",
       "mappedBy": "subgerencia"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "subgerencia"
     }
   }
 }

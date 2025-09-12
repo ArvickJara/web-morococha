@@ -22,6 +22,11 @@ import SerenazgoPage from "./pages/Serenazgo";
 import ComerciantesPage from "./pages/Comerciantes";
 import Gerencia from "./pages/Gerencia";
 import ObraDetalle from "./pages/ObraDetalle";
+import Login from "./pages/Login";
+import Panel from "./pages/Panel";
+import Obras from "./pages/Obras";
+import Servicios from "./pages/Servicios";
+import Actividades from "./pages/Actividades";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +54,11 @@ const App = () => (
           <Route path="/comerciantes" element={<ComerciantesPage />} />
           <Route path="/gerencias/:documentId" element={<Gerencia />} />
           <Route path="/obras/:documentId" element={<ObraDetalle />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/panel" element={<Panel />} />
+          <Route path="/panel/obras" element={<Obras />} />
+          <Route path="/panel/servicios" element={<Servicios />} />
+          <Route path="/panel/actividades" element={<Actividades />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
