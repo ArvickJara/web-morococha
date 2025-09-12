@@ -24,9 +24,9 @@ import Gerencia from "./pages/Gerencia";
 import ObraDetalle from "./pages/ObraDetalle";
 import Login from "./pages/Login";
 import Panel from "./pages/Panel";
-import Obras from "./pages/Obras";
-import Servicios from "./pages/Servicios";
-import Actividades from "./pages/Actividades";
+import Obras from "./pages/ObrasSubGerente";
+import Servicios from "./pages/ServiciosSubGerente";
+import Actividades from "./pages/ActividadesSubGerente";
 
 const queryClient = new QueryClient();
 

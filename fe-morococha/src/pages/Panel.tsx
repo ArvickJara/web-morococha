@@ -7,6 +7,7 @@ import { Building, ClipboardList, Activity } from "lucide-react";
 
 const Panel = () => {
   const [subgerencia, setSubgerencia] = useState<string>("");
+  const [descripcionSubgerencia, setDescripcionSubgerencia] = useState<string>("");
 
   useEffect(() => {
     const fetchSubgerencia = async () => {
@@ -18,6 +19,7 @@ const Panel = () => {
       try {
         const response = await api.get("/users/me?populate=subgerencia");
         setSubgerencia(response.data.subgerencia?.nombre || "Sin asignar");
+        setDescripcionSubgerencia(response.data.subgerencia?.descripcion || "Sin descripción");
       } catch (err) {
         console.error("Error al obtener la subgerencia:", err);
       }
@@ -33,6 +35,9 @@ const Panel = () => {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">Panel de Administración</h1>
           <p className="text-lg text-gray-600">SUBGERENCIA: {subgerencia}</p>
+          <p className="text-md text-gray-500 italic bg-gray-200 px-4 py-2 rounded-lg inline-block max-w-md">
+            {descripcionSubgerencia}
+          </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
           <Link

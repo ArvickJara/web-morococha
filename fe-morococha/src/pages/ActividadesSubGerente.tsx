@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import HeaderAdmin from "@/components/HeaderAdmin";
 
-import ActividadesSection from "@/components/ActividadesSection";
+import ActividadesSection from "@/components/ActividadesSubGerenteSection";
 
 const Actividades = () => {
   return (

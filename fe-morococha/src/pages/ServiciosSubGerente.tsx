@@ -1,6 +1,6 @@
 import HeaderAdmin from "@/components/HeaderAdmin";
 import Footer from "@/components/Footer";
-import ServiciosSection from "@/components/ServiciosSection";
+import ServiciosSection from "@/components/ServiciosSubGerenteSection";
 
 const Servicios = () => {
   return (
