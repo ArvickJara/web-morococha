@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import heroVideoFallback from "@/assets/morococha.mp4";
 import { ASSETS_URL } from "@/services/api"; // Importa la URL correcta para los assets
 
+
 const HeroSection = () => {
     const [heroData, setHeroData] = useState<HeroSectionType | null>(null);
 
@@ -52,7 +53,10 @@ const HeroSection = () => {
         : null;
 
     return (
+
         <section className="relative min-h-[90vh] flex items-center justify-center text-center overflow-hidden">
+
+
             {/* --- FONDO DE VIDEO Y OVERLAY --- */}
             <div className="absolute inset-0 z-0">
                 {mediaSrc && isVideo ? (
@@ -88,9 +92,13 @@ const HeroSection = () => {
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
+
             </div>
 
+
+
             <div className="relative z-10 container mx-auto px-4 py-20 flex flex-col items-start text-left">
+
                 <div className="max-w-3xl">
                     {/* Título principal */}
                     <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight animate-fade-in-down">

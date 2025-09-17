@@ -27,6 +27,8 @@ import Panel from "./pages/Panel";
 import Obras from "./pages/ObrasSubGerente";
 import Servicios from "./pages/ServiciosSubGerente";
 import Actividades from "./pages/ActividadesSubGerente";
+import RadioPlayer from "@/components/RadioPlayer";
+
 
 const queryClient = new QueryClient();
 
@@ -34,6 +36,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
+      <RadioPlayer />
       <Sonner />
       <BrowserRouter>
         <Routes>
@@ -61,6 +64,8 @@ const App = () => (
           <Route path="/panel/actividades" element={<Actividades />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+
+
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

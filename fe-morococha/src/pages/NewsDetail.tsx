@@ -106,7 +106,7 @@ export default function NewsDetail() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-background via-muted/10 to-background">
             <Header />
-            <article className="container mx-auto px-4 py-8 max-w-5xl">
+            <article className="container mx-auto mt-20 px-4 py-8 max-w-5xl">
                 {/* Barra superior mejorada */}
                 <div className="mb-8 flex items-center justify-between backdrop-blur-sm">
                     <Link to="/#noticias">

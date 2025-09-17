@@ -1,24 +1,31 @@
-import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import NewsSection from "@/components/NewsSection";
 import Footer from "@/components/Footer";
-import RadioPlayer from "@/components/RadioPlayer";
 import WelcomeCarouselModal from "@/components/WelcomeCarouselModal";
 import QuickLinks from "@/components/QuickLinks";
+import Header from "@/components/Header";
+
 
 const Index = () => {
     return (
         <>
-            <WelcomeCarouselModal />
-            <Header />
+
+
             <div className="min-h-screen bg-background overflow-x-hidden">
-                <HeroSection />
+
+                <Header />
+                {/* --- NUEVO CONTENEDOR --- */}
+                <div className="relative">
+
+                    <HeroSection />
+                </div>
+                {/* --- FIN DEL CONTENEDOR --- */}
+                <WelcomeCarouselModal />
                 <QuickLinks />
                 <ServicesSection />
                 <NewsSection />
                 <Footer />
-                <RadioPlayer />
             </div>
         </>
     );
