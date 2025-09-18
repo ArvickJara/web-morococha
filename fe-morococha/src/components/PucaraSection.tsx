@@ -1,4 +1,4 @@
-import { MapPin, Users, GraduationCap, Coins, Heart, Mountain, BookOpen, ArrowRight, Folder } from "lucide-react";
+import { MapPin, Users, GraduationCap, Coins, Heart, Mountain, BookOpen, ArrowRight, Folder, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import api from "@/services/api";
 
@@ -10,6 +10,7 @@ import escuelaPucara from "@/assets/escuela-pucara.jpg";
 
 const PucaraSection = () => {
     const [totalProyectos, setTotalProyectos] = useState<number>(0);
+    const [showMap, setShowMap] = useState<boolean>(false); // Estado para controlar la visibilidad del mapa
 
     useEffect(() => {
         const fetchTotalProyectos = async () => {
@@ -29,12 +30,18 @@ const PucaraSection = () => {
         { 
             icon: Folder, // Cambiamos el icono
             label: "Proyectos", 
-            value: `${totalProyectos}+`, 
+            value: `+${totalProyectos}`, 
             link: "/pucara/proyectos", // Agregamos el enlace
             description: "Ver todos los proyectos" // Texto adicional
         },
+        { 
+            icon: Mountain, 
+            label: "Ubicación", 
+            value: "Ver ubicación", 
+            action: () => setShowMap(!showMap), // Acción para mostrar/ocultar el mapa
+            description: "Mostrar ubicación en el mapa" 
+        },
         { icon: Users, label: "Habitantes", value: "+ 300" },
-        { icon: Mountain, label: "Ubicación", value: "Km 147, Carr. Central" },
     ];
 
     const features = [
@@ -106,9 +113,39 @@ const PucaraSection = () => {
                                     <ArrowRight className="h-4 w-4" />
                                 </a>
                             )}
+                            {stat.action && (
+                                <button 
+                                    onClick={stat.action} 
+                                    className="text-muted-foreground text-sm mt-3 flex items-center gap-1 hover:underline"
+                                >
+                                    {stat.description}
+                                    <ArrowRight className="h-4 w-4" />
+                                </button>
+                            )}
                         </div>
                     ))}
                 </div>
+
+                {/* --- MAPA --- */}
+                {showMap && (
+                    <div className="flex flex-col items-center mb-24">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121064.80781536867!2d-75.1894162115487!3d-12.175341624609802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x910e9b02976aa995%3A0x3cfab682c4503276!2sPucara!5e1!3m2!1ses-419!2spe!4v1758156643363!5m2!1ses-419!2spe" 
+                            width="600" 
+                            height="450" 
+                            style={{ border: 0 }} 
+                            allowFullScreen 
+                            loading="lazy" 
+                            referrerPolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                        <button 
+                            onClick={() => setShowMap(false)} 
+                            className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition"
+                        >
+                            Cerrar mapa
+                        </button>
+                    </div>
+                )}
 
                 {/* --- SECCIONES DE CARACTERÍSTICAS CON IMAGEN --- */}
                 <div className="space-y-24">
