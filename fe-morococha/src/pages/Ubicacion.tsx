@@ -9,7 +9,7 @@ export default function UbicacionPage() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-background via-muted/10 to-background">
             <Header />
-            <section className="container mx-auto px-4 py-12 max-w-7xl">
+            <section className="container mx-auto mt-20 px-4 py-12 max-w-7xl">
                 {/* Barra superior */}
                 <div className="mb-8 flex items-center justify-between">
                     <Link to="/">

@@ -61,7 +61,7 @@ const ProyectosSection = () => {
   };
 
   return (
-    <section id="proyectos" className="py-16 bg-background">
+    <section id="proyectos" className="py-16 mt-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Encabezado */}
         <div className="text-center mb-12">

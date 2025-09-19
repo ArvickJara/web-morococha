@@ -138,7 +138,7 @@ export default function RegidoresPage() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-background via-muted/10 to-background">
             <Header />
-            <section className="container mx-auto px-4 py-12 max-w-6xl">
+            <section className="container mt-20 mx-auto px-4 py-12 max-w-6xl">
                 {/* Barra superior mejorada */}
                 <div className="mb-8 flex items-center justify-between">
                     <Link to="/">
