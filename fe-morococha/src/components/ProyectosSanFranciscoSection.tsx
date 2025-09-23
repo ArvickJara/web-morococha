@@ -64,7 +64,7 @@ const ProyectosSanFranciscoSection = () => {
   };
 
   return (
-    <section id="proyectos-san-francisco" className="py-16 bg-background">
+    <section id="proyectos-san-francisco" className="py-24 bg-background">
       <div className="container mx-auto px-4">
         {/* Encabezado */}
         <div className="text-center mb-12">
