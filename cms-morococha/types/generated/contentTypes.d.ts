@@ -458,6 +458,10 @@ export interface ApiComercioComercio extends Struct.CollectionTypeSchema {
     estado: Schema.Attribute.Boolean;
     horario: Schema.Attribute.String;
     icon: Schema.Attribute.String;
+    imagenes: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

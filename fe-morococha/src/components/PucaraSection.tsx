@@ -27,19 +27,19 @@ const PucaraSection = () => {
     }, []);
 
     const stats = [
-        { 
+        {
             icon: Folder, // Cambiamos el icono
-            label: "Proyectos", 
-            value: `${totalProyectos}+`, 
+            label: "Proyectos",
+            value: `${totalProyectos}+`,
             link: "/pucara/proyectos", // Agregamos el enlace
             description: "Ver todos los proyectos" // Texto adicional
         },
-        { 
-            icon: Mountain, 
-            label: "Ubicación", 
-            value: "Ver ubicación", 
+        {
+            icon: Mountain,
+            label: "Ubicación",
+            value: "Ver ubicación",
             link: "/pucara/ubicacion", // ahora es enlace a nueva página
-            description: "Ver ubicación en el mapa" 
+            description: "Ver ubicación en el mapa"
         },
         { icon: Users, label: "Habitantes", value: "+ 300" },
     ];
@@ -97,8 +97,8 @@ const PucaraSection = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 max-w-4xl mx-auto">
                     {stats.map((stat, index) => (
-                        <div 
-                            key={index} 
+                        <div
+                            key={index}
                             className="bg-card border border-border/50 rounded-xl p-6 text-center flex flex-col items-center justify-center hover:bg-card/80 transition-colors"
                         >
                             <stat.icon className="h-10 w-10 text-primary mb-3" />
@@ -107,8 +107,8 @@ const PucaraSection = () => {
 
                             {/* link / action handling */}
                             {stat.link && (
-                                <Link 
-                                    to={stat.link} 
+                                <Link
+                                    to={stat.link}
                                     className="text-muted-foreground text-sm mt-3 flex items-center gap-1 hover:underline"
                                 >
                                     {stat.description}

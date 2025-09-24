@@ -28,7 +28,10 @@ import Obras from "./pages/ObrasSubGerente";
 import Servicios from "./pages/ServiciosSubGerente";
 import Actividades from "./pages/ActividadesSubGerente";
 import RadioPlayer from "@/components/RadioPlayer";
-import UbicacionPucara from "@/pages/UbicacionPucara"; // nuevo import
+import UbicacionPucara from "@/pages/UbicacionPucara";
+import MisionVision from "@/pages/MisionVision";
+import Historia from "@/pages/Historia";
+import Turismo from "@/pages/Turismo";
 
 
 const queryClient = new QueryClient();
@@ -43,6 +46,9 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/pucara" element={<Pucara />} />
+          <Route path="/mision-vision" element={<MisionVision />} />
+          <Route path="/historia" element={<Historia />} />
+          <Route path="/turismo" element={<Turismo />} />
           <Route path="/pucara/ubicacion" element={<UbicacionPucara />} /> {/* nueva ruta */}
           <Route path="/convocatorias" element={<Convocatorias />} />
           <Route path="/convocatorias/:documentId" element={<ConvocatoriaDetalle />} />
