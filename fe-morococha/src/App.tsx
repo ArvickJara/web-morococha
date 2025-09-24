@@ -28,6 +28,7 @@ import Obras from "./pages/ObrasSubGerente";
 import Servicios from "./pages/ServiciosSubGerente";
 import Actividades from "./pages/ActividadesSubGerente";
 import RadioPlayer from "@/components/RadioPlayer";
+import UbicacionPucara from "@/pages/UbicacionPucara"; // nuevo import
 
 
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/pucara" element={<Pucara />} />
+          <Route path="/pucara/ubicacion" element={<UbicacionPucara />} /> {/* nueva ruta */}
           <Route path="/convocatorias" element={<Convocatorias />} />
           <Route path="/convocatorias/:documentId" element={<ConvocatoriaDetalle />} />
           <Route path="/noticias/:id" element={<NewsDetail />} />
@@ -64,8 +66,6 @@ const App = () => (
           <Route path="/panel/actividades" element={<Actividades />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-
-
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
