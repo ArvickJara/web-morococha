@@ -89,7 +89,7 @@ const GerenciaSection = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 pt-20">
             {/* Elemento decorativo superior */}
             <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-blue-50 to-transparent" />
 
@@ -138,7 +138,7 @@ const GerenciaSection = () => {
                         {activeTab === 'actividades' && (
                             <div className="space-y-4">
                                 {actividades.map((actividad) => (
-                                    <div 
+                                    <div
                                         key={actividad.documentId}
                                         className="p-4 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors"
                                     >
@@ -176,9 +176,9 @@ const GerenciaSection = () => {
                         {activeTab === 'obras' && (
                             <div className="grid gap-6 md:grid-cols-2">
                                 {obras.map((obra) => (
-                                    <Link 
+                                    <Link
                                         to={`/obras/${obra.documentId}`}
-                                        key={obra.documentId} 
+                                        key={obra.documentId}
                                         className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
                                     >
                                         {obra.media?.length > 0 && (

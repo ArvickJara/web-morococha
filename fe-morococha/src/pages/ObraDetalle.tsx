@@ -72,7 +72,7 @@ const ObraDetalle = () => {
     return (
         <>
             <Header />
-            <div className="max-w-5xl mx-auto p-6">
+            <div className="max-w-5xl mx-auto p-6 pt-24">
                 <Link
                     to={`/gerencias/${obra.subgerencia.documentId}`}
                     className="inline-flex items-center mb-6 text-blue-600 hover:underline"
@@ -137,9 +137,8 @@ const ObraDetalle = () => {
                                 {media.map((_: any, index: number) => (
                                     <div
                                         key={index}
-                                        className={`w-3 h-3 rounded-full cursor-pointer ${
-                                            index === currentSlide ? "bg-blue-600" : "bg-gray-300"
-                                        }`}
+                                        className={`w-3 h-3 rounded-full cursor-pointer ${index === currentSlide ? "bg-blue-600" : "bg-gray-300"
+                                            }`}
                                         onClick={() => setCurrentSlide(index)}
                                     />
                                 ))}
