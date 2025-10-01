@@ -39,6 +39,12 @@ const Footer = () => {
         { name: "Registros Civiles" },
         { name: "Comercialización" }
     ];
+    const partnerLinks = [
+        { name: "MEF", href: "https://www.mef.gob.pe", src: "/mef.png" },
+        { name: "MIDIS", href: "https://www.gob.pe/midis", src: "/midis.jpg" },
+        { name: "MIMP", href: "https://www.gob.pe/mimp", src: "/MIMP.webp" },
+        { name: "PNP", href: "https://www.policia.gob.pe", src: "/pnp.png" },
+    ];
 
     // Usa los enlaces de la API si existen, si no, deja el valor por defecto
     const socialLinks = [
@@ -136,6 +142,33 @@ const Footer = () => {
                                         rel="noopener noreferrer"
                                     >
                                         <social.icon className="h-5 w-5" />
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Logos con mismo tamaño y enlace */}
+                        <div className="mt-8">
+                            <h5 className="font-medium mb-4">Enlaces de interés</h5>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                {partnerLinks.map((item) => (
+                                    <a
+                                        key={item.name}
+                                        href={item.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block rounded-lg bg-background/10 border border-background/15 hover:border-primary/60 hover:shadow-md transition-all duration-200 overflow-hidden w-32 h-20 mx-auto"
+                                        aria-label={item.name}
+                                    >
+                                        <div className="w-full h-full flex items-center justify-center p-2">
+                                            <img
+                                                src={item.src}
+                                                alt={item.name}
+                                                className="h-full w-full object-contain"
+                                                loading="lazy"
+                                                decoding="async"
+                                            />
+                                        </div>
                                     </a>
                                 ))}
                             </div>
