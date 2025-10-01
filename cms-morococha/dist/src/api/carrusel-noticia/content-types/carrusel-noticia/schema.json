@@ -1,0 +1,31 @@
+{
+    "kind": "collectionType",
+    "collectionName": "carrusel_noticias",
+    "info": {
+        "singularName": "carrusel-noticia",
+        "pluralName": "carrusel-noticias",
+        "displayName": "carrusel noticia"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "imagen_noticia": {
+            "type": "media",
+            "multiple": true,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "noticia": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::noticia.noticia",
+            "inversedBy": "carrusel_noticias"
+        }
+    }
+}

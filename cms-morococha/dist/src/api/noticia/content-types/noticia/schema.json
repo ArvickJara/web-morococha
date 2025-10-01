@@ -20,16 +20,6 @@
         "cuerpo_noticia": {
             "type": "text"
         },
-        "imagen_noticia": {
-            "type": "media",
-            "multiple": true,
-            "allowedTypes": [
-                "images",
-                "files",
-                "videos",
-                "audios"
-            ]
-        },
         "fecha": {
             "type": "date"
         },
@@ -38,6 +28,12 @@
         },
         "categoria": {
             "type": "string"
+        },
+        "carrusel_noticias": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::carrusel-noticia.carrusel-noticia",
+            "mappedBy": "noticia"
         }
     }
 }

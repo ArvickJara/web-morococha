@@ -436,6 +436,39 @@ export interface ApiAlcaldeAlcalde extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiCarruselNoticiaCarruselNoticia
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'carrusel_noticias';
+  info: {
+    displayName: 'carrusel noticia';
+    pluralName: 'carrusel-noticias';
+    singularName: 'carrusel-noticia';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    imagen_noticia: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::carrusel-noticia.carrusel-noticia'
+    > &
+      Schema.Attribute.Private;
+    noticia: Schema.Attribute.Relation<'manyToOne', 'api::noticia.noticia'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiComercioComercio extends Struct.CollectionTypeSchema {
   collectionName: 'comercios';
   info: {
@@ -647,16 +680,16 @@ export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
   };
   attributes: {
     breve_descripcion: Schema.Attribute.Text;
+    carrusel_noticias: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::carrusel-noticia.carrusel-noticia'
+    >;
     categoria: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     cuerpo_noticia: Schema.Attribute.Text;
     fecha: Schema.Attribute.Date;
-    imagen_noticia: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1568,6 +1601,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::actividades-subgerencia.actividades-subgerencia': ApiActividadesSubgerenciaActividadesSubgerencia;
       'api::alcalde.alcalde': ApiAlcaldeAlcalde;
+      'api::carrusel-noticia.carrusel-noticia': ApiCarruselNoticiaCarruselNoticia;
       'api::comercio.comercio': ApiComercioComercio;
       'api::convocatoria.convocatoria': ApiConvocatoriaConvocatoria;
       'api::hero-section.hero-section': ApiHeroSectionHeroSection;

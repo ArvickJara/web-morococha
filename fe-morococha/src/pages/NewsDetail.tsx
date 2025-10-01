@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getNoticiaById, imageUrl, type Noticia } from "@/services/noticasService";
+import { getNoticiaById, getNoticiaByDocumentId, imageUrl, type Noticia, FALLBACK_IMAGE } from "@/services/noticasService";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
@@ -12,20 +12,29 @@ export default function NewsDetail() {
     const [noticia, setNoticia] = useState<Noticia | null>(null);
     const [error, setError] = useState<string | null>(null);
 
+    // Estado del carrusel
+    const [slide, setSlide] = useState(0);
+
     useEffect(() => {
         let alive = true;
         (async () => {
             setError(null);
-            if (!id) return setError("Id inválido.");
-
-            const numId = Number(id);
-            if (Number.isNaN(numId)) return setError("El id debe ser numérico.");
+            const param = id ?? "";
+            if (!param) return setError("Id inválido.");
 
             try {
-                const n = await getNoticiaById(numId);
+                // Si es un número puro -> busca por id; si no, busca por documentId
+                let n: Noticia | null = null;
+                if (/^\d+$/.test(param)) {
+                    n = await getNoticiaById(Number(param));
+                } else {
+                    n = await getNoticiaByDocumentId(param);
+                }
+
                 if (!alive) return;
                 if (!n) setError("Noticia no encontrada o no publicada.");
                 setNoticia(n);
+                setSlide(0);
             } catch {
                 if (!alive) return;
                 setError("No se pudo cargar la noticia.");
@@ -35,6 +44,17 @@ export default function NewsDetail() {
             alive = false;
         };
     }, [id]);
+
+    // Asegura que el índice esté dentro del rango si cambia la cantidad de imágenes
+    useEffect(() => {
+        if (!noticia) return;
+        const total = noticia.imagenes?.length ?? 0;
+        if (total === 0) {
+            setSlide(0);
+        } else if (slide >= total) {
+            setSlide(0);
+        }
+    }, [noticia, slide]);
 
     if (error) {
         return (
@@ -100,14 +120,18 @@ export default function NewsDetail() {
         })
         : "";
 
-    const img = noticia.imagen_noticia?.[0];
-    const cover = img ? imageUrl(img) : undefined;
+    const imgs = noticia.imagenes ?? [];
+    const total = imgs.length;
+    const current = total > 0 ? imageUrl(imgs[slide]) : FALLBACK_IMAGE;
+
+    const prev = () => setSlide((s) => (total ? (s - 1 + total) % total : 0));
+    const next = () => setSlide((s) => (total ? (s + 1) % total : 0));
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-background via-muted/10 to-background">
             <Header />
             <article className="container mx-auto mt-20 px-4 py-8 max-w-5xl">
-                {/* Barra superior mejorada */}
+                {/* Barra superior */}
                 <div className="mb-8 flex items-center justify-between backdrop-blur-sm">
                     <Link to="/#noticias">
                         <Button
@@ -121,33 +145,61 @@ export default function NewsDetail() {
                     </Link>
                 </div>
 
-                {/* Hero mejorado con imagen 16:9 + overlay */}
+                {/* Hero con carrusel de imágenes */}
                 <section className="relative overflow-hidden rounded-3xl shadow-2xl border border-border/50 mb-12">
-                    <div className="aspect-[16/9] w-full bg-gradient-to-br from-muted via-muted/80 to-muted/60">
-                        {cover && (
-                            <img
-                                src={cover}
-                                alt={noticia.titulo_noticia}
-                                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                                loading="lazy"
-                                decoding="async"
-                            />
+                    <div className="aspect-[16/9] w-full bg-gradient-to-br from-muted via-muted/80 to-muted/60 relative">
+                        <img
+                            src={current}
+                            alt={noticia.titulo_noticia}
+                            className="h-full w-full object-cover transition-transform duration-700"
+                            loading="lazy"
+                            decoding="async"
+                            onError={(e) => {
+                                e.currentTarget.src = FALLBACK_IMAGE;
+                            }}
+                        />
+
+                        {/* Controles del carrusel */}
+                        {total > 1 && (
+                            <>
+                                <button
+                                    aria-label="Anterior"
+                                    onClick={prev}
+                                    className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full border border-white/20"
+                                >
+                                    <ChevronLeft className="h-6 w-6" />
+                                </button>
+                                <button
+                                    aria-label="Siguiente"
+                                    onClick={next}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full border border-white/20"
+                                >
+                                    <ChevronRight className="h-6 w-6" />
+                                </button>
+
+                                {/* Indicadores */}
+                                <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+                                    {imgs.map((_, i) => (
+                                        <button
+                                            key={i}
+                                            aria-label={`Ir a imagen ${i + 1}`}
+                                            onClick={() => setSlide(i)}
+                                            className={`h-2.5 w-2.5 rounded-full border border-white/30 ${i === slide ? "bg-white" : "bg-white/40"
+                                                }`}
+                                        />
+                                    ))}
+                                </div>
+                            </>
                         )}
                     </div>
 
-                    {/* Overlay inferior con gradiente mejorado */}
+                    {/* Overlay inferior con info */}
                     <div className="pointer-events-none absolute inset-0">
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                         <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
                             <div className="max-w-4xl">
-                                <div className="flex items-center gap-3 mb-4">
-                                    {noticia.categoria && (
-                                        <Badge className="pointer-events-auto bg-primary/90 text-primary-black px-4 py-1.5 text-sm font-semibold backdrop-blur-sm border border-white/20">
-                                            {noticia.categoria}
-                                        </Badge>
-                                    )}
-                                </div>
-                                <h1 className="text-white text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight mb-6 drop-shadow-2xl">
+
+                                <h1 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold leading-snug tracking-tight mb-4">
                                     {noticia.titulo_noticia}
                                 </h1>
                                 <div className="flex flex-wrap items-center gap-6 text-sm text-white/90">
@@ -169,23 +221,10 @@ export default function NewsDetail() {
                     </div>
                 </section>
 
-                {/* Lead / resumen mejorado */}
-                {/* {noticia.breve_descripcion && (
-                    <div className="mb-12">
-                        <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border/50 shadow-lg">
-                            <p className="text-xl md:text-2xl text-muted-black leading-relaxed font-light italic break-words overflow-hidden"
-                                style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
-                                "{noticia.breve_descripcion}"
-                            </p>
-                        </div>
-                    </div>
-                )} */}
-
-                {/* Cuerpo mejorado */}
+                {/* Cuerpo */}
                 <div className="bg-card/30 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-border/50 shadow-xl">
                     <div
-
-                        style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
+                        style={{ wordBreak: "break-word", overflowWrap: "break-word" }}
                         dangerouslySetInnerHTML={{ __html: noticia.cuerpo_noticia ?? "" }}
                     />
                 </div>
