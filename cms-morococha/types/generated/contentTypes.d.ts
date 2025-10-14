@@ -552,6 +552,39 @@ export interface ApiConvocatoriaConvocatoria
   };
 }
 
+export interface ApiEnlacesDeIntereEnlacesDeIntere
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'enlaces_de_interes';
+  info: {
+    displayName: 'Enlaces de inter\u00E9';
+    pluralName: 'enlaces-de-interes';
+    singularName: 'enlaces-de-intere';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    imagen: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    link: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::enlaces-de-intere.enlaces-de-intere'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHeroSectionHeroSection extends Struct.SingleTypeSchema {
   collectionName: 'hero_sections';
   info: {
@@ -1604,6 +1637,7 @@ declare module '@strapi/strapi' {
       'api::carrusel-noticia.carrusel-noticia': ApiCarruselNoticiaCarruselNoticia;
       'api::comercio.comercio': ApiComercioComercio;
       'api::convocatoria.convocatoria': ApiConvocatoriaConvocatoria;
+      'api::enlaces-de-intere.enlaces-de-intere': ApiEnlacesDeIntereEnlacesDeIntere;
       'api::hero-section.hero-section': ApiHeroSectionHeroSection;
       'api::modal-carrusel.modal-carrusel': ApiModalCarruselModalCarrusel;
       'api::noticia.noticia': ApiNoticiaNoticia;

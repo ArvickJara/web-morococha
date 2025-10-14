@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "enlaces_de_interes",
+  "info": {
+    "singularName": "enlaces-de-intere",
+    "pluralName": "enlaces-de-interes",
+    "displayName": "Enlaces de interé"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "link": {
+      "type": "string"
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

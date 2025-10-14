@@ -14,13 +14,30 @@ import {
 } from "lucide-react";
 import EscudoGray from "@/assets/escudo_grayscale.png";
 import { getRedeData } from "@/services/redeService";
+import { getEnlacesInteres, enlaceImageUrl, type EnlaceInteres } from "@/services/enlacesService";
 import type { RedeData } from "@/services/redeService";
 
 const Footer = () => {
     const [rede, setRede] = useState<RedeData | null>(null);
+    const [enlaces, setEnlaces] = useState<EnlaceInteres[]>([]);
+    const [loadingEnlaces, setLoadingEnlaces] = useState(true);
 
     useEffect(() => {
         getRedeData().then(setRede);
+    }, []);
+
+    useEffect(() => {
+        let mounted = true;
+        (async () => {
+            try {
+                setLoadingEnlaces(true);
+                const items = await getEnlacesInteres();
+                if (mounted) setEnlaces(items);
+            } finally {
+                if (mounted) setLoadingEnlaces(false);
+            }
+        })();
+        return () => { mounted = false; };
     }, []);
 
     const quickLinks = [
@@ -39,14 +56,15 @@ const Footer = () => {
         { name: "Registros Civiles" },
         { name: "Comercialización" }
     ];
-    const partnerLinks = [
+
+    // Fallback estático si no hay enlaces dinámicos
+    const partnerLinksFallback = [
         { name: "MEF", href: "https://www.mef.gob.pe", src: "/mef.png" },
         { name: "MIDIS", href: "https://www.gob.pe/midis", src: "/midis.jpg" },
         { name: "MIMP", href: "https://www.gob.pe/mimp", src: "/MIMP.webp" },
         { name: "PNP", href: "https://www.policia.gob.pe", src: "/pnp.png" },
     ];
 
-    // Usa los enlaces de la API si existen, si no, deja el valor por defecto
     const socialLinks = [
         { name: "Facebook", icon: Facebook, href: rede?.facebook || "https://www.facebook.com/munidemorococha" },
         { name: "Twitter", icon: Twitter, href: rede?.Twitter || "#" },
@@ -147,31 +165,75 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        {/* Logos con mismo tamaño y enlace */}
+                        {/* Enlaces de interés dinámicos */}
                         <div className="mt-8">
                             <h5 className="font-medium mb-4">Enlaces de interés</h5>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                                {partnerLinks.map((item) => (
-                                    <a
-                                        key={item.name}
-                                        href={item.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="block rounded-lg bg-background/10 border border-background/15 hover:border-primary/60 hover:shadow-md transition-all duration-200 overflow-hidden w-32 h-20 mx-auto"
-                                        aria-label={item.name}
-                                    >
-                                        <div className="w-full h-full flex items-center justify-center p-2">
-                                            <img
-                                                src={item.src}
-                                                alt={item.name}
-                                                className="h-full w-full object-contain"
-                                                loading="lazy"
-                                                decoding="async"
-                                            />
-                                        </div>
-                                    </a>
-                                ))}
-                            </div>
+                            {loadingEnlaces ? (
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                    {Array.from({ length: 4 }).map((_, i) => (
+                                        <div
+                                            key={i}
+                                            className="w-32 h-20 mx-auto bg-background/10 rounded-lg animate-pulse"
+                                        />
+                                    ))}
+                                </div>
+                            ) : enlaces.length > 0 ? (
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                    {enlaces.map((enlace) => {
+                                        const imgUrl = enlaceImageUrl(enlace);
+                                        return (
+                                            <a
+                                                key={enlace.id}
+                                                href={enlace.link} // Usar 'link' en lugar de 'url'
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="block rounded-lg bg-background/10 border border-background/15 hover:border-primary/60 hover:shadow-md transition-all duration-200 overflow-hidden w-32 h-20 mx-auto"
+                                                aria-label={`Enlace ${enlace.id}`}
+                                            >
+                                                <div className="w-full h-full flex items-center justify-center p-2">
+                                                    {imgUrl ? (
+                                                        <img
+                                                            src={imgUrl}
+                                                            alt={enlace.imagen?.alternativeText || `Enlace ${enlace.id}`}
+                                                            className="h-full w-full object-contain"
+                                                            loading="lazy"
+                                                            decoding="async"
+                                                        />
+                                                    ) : (
+                                                        <span className="text-xs text-center text-background/70 font-medium">
+                                                            Enlace {enlace.id}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </a>
+                                        );
+                                    })}
+                                </div>
+                            ) : (
+                                // Fallback a enlaces estáticos si no hay dinámicos
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                    {partnerLinksFallback.map((item) => (
+                                        <a
+                                            key={item.name}
+                                            href={item.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block rounded-lg bg-background/10 border border-background/15 hover:border-primary/60 hover:shadow-md transition-all duration-200 overflow-hidden w-32 h-20 mx-auto"
+                                            aria-label={item.name}
+                                        >
+                                            <div className="w-full h-full flex items-center justify-center p-2">
+                                                <img
+                                                    src={item.src}
+                                                    alt={item.name}
+                                                    className="h-full w-full object-contain"
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                />
+                                            </div>
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
