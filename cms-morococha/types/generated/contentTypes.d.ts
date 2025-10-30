@@ -469,6 +469,39 @@ export interface ApiCarruselNoticiaCarruselNoticia
   };
 }
 
+export interface ApiCaruuselTurismoCaruuselTurismo
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'caruusel_turismos';
+  info: {
+    displayName: 'caruusel_turismo';
+    pluralName: 'caruusel-turismos';
+    singularName: 'caruusel-turismo';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    imagen_turismo: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::caruusel-turismo.caruusel-turismo'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    turismo: Schema.Attribute.Relation<'manyToOne', 'api::turismo.turismo'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiComercioComercio extends Struct.CollectionTypeSchema {
   collectionName: 'comercios';
   info: {
@@ -1120,6 +1153,39 @@ export interface ApiTipoConvocatoriaTipoConvocatoria
   };
 }
 
+export interface ApiTurismoTurismo extends Struct.CollectionTypeSchema {
+  collectionName: 'turismos';
+  info: {
+    displayName: 'turismo';
+    pluralName: 'turismos';
+    singularName: 'turismo';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    caruusel_turismos: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::caruusel-turismo.caruusel-turismo'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion_lugar_turistico: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::turismo.turismo'
+    > &
+      Schema.Attribute.Private;
+    nombre_lugar_turistico: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1635,6 +1701,7 @@ declare module '@strapi/strapi' {
       'api::actividades-subgerencia.actividades-subgerencia': ApiActividadesSubgerenciaActividadesSubgerencia;
       'api::alcalde.alcalde': ApiAlcaldeAlcalde;
       'api::carrusel-noticia.carrusel-noticia': ApiCarruselNoticiaCarruselNoticia;
+      'api::caruusel-turismo.caruusel-turismo': ApiCaruuselTurismoCaruuselTurismo;
       'api::comercio.comercio': ApiComercioComercio;
       'api::convocatoria.convocatoria': ApiConvocatoriaConvocatoria;
       'api::enlaces-de-intere.enlaces-de-intere': ApiEnlacesDeIntereEnlacesDeIntere;
@@ -1652,6 +1719,7 @@ declare module '@strapi/strapi' {
       'api::servicios-subgerencia.servicios-subgerencia': ApiServiciosSubgerenciaServiciosSubgerencia;
       'api::subgerencia.subgerencia': ApiSubgerenciaSubgerencia;
       'api::tipo-convocatoria.tipo-convocatoria': ApiTipoConvocatoriaTipoConvocatoria;
+      'api::turismo.turismo': ApiTurismoTurismo;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

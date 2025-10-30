@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "caruusel_turismos",
+  "info": {
+    "singularName": "caruusel-turismo",
+    "pluralName": "caruusel-turismos",
+    "displayName": "caruusel_turismo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "imagen_turismo": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "turismo": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::turismo.turismo",
+      "inversedBy": "caruusel_turismos"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+    "kind": "collectionType",
+    "collectionName": "turismos",
+    "info": {
+        "singularName": "turismo",
+        "pluralName": "turismos",
+        "displayName": "turismo"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "nombre_lugar_turistico": {
+            "type": "string"
+        },
+        "descripcion_lugar_turistico": {
+            "type": "text"
+        },
+        "caruusel_turismos": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::caruusel-turismo.caruusel-turismo",
+            "mappedBy": "turismo"
+        }
+    }
+}
